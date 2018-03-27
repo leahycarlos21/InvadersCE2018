@@ -1,10 +1,12 @@
 package com.tec.datos1.ListaDoble;
 
+import com.tec.datos1.Enemigos.Enemigos;
+
 public class ListaDoble {
     private NodoDoble raiz;
 
-    public ListaDoble(){
-        raiz=null;
+    public ListaDoble() {
+        raiz = null;
     }
 
     /*retorna la cantidad de nodos de la lista**/
@@ -18,7 +20,7 @@ public class ListaDoble {
         return cant;
     }
 
-    public void insertar(int posicion,  enemigo) {
+    public void insertar(int posicion, Object enemigo) {
         if (posicion <= cantidad() + 1) {
             NodoDoble nuevo = new NodoDoble(enemigo);
             if (posicion == 1) {
@@ -49,6 +51,7 @@ public class ListaDoble {
             }
         }
     }
+
     public void eliminar(int posicion) {
         if (posicion <= cantidad()) {
             if (posicion == 1) {
@@ -70,6 +73,7 @@ public class ListaDoble {
             }
         }
     }
+
     public void intercambiar(int posicion1, int posicion2) {
         if (posicion1 <= cantidad() && posicion2 <= cantidad()) {
             NodoDoble auxNodo1 = raiz;
@@ -78,7 +82,7 @@ public class ListaDoble {
             NodoDoble auxNodo2 = raiz;
             for (int i = 1; i < posicion2; i++)
                 auxNodo2 = auxNodo2.getSiguiente();
-            EnemigoForma datoAux = auxNodo1.getDato();
+            Object datoAux = auxNodo1.getDato();
             auxNodo1.setDato(auxNodo2.getDato());
             auxNodo2.setDato(datoAux);
         }
