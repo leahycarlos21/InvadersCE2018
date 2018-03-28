@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class EnemigoJefe extends Enemigos {
-    public EnemigoJefe(int vida) {
-        super(vida, new JuegoObjeto(new Rectangle(40, 40, Color.BLANCHEDALMOND)));
+    public EnemigoJefe(int vida, JuegoObjeto EnemigoObjeto) {
+        super(vida, EnemigoObjeto);
     }
 }

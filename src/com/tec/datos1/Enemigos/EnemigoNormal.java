@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 public class EnemigoNormal extends Enemigos {
 
-    public EnemigoNormal(int vida) {
-        super(vida, new JuegoObjeto(new Rectangle(40, 40, Color.RED)));
+    public EnemigoNormal(int vida, JuegoObjeto EnemigoObjeto) {
+        super(vida, EnemigoObjeto);
     }
 }

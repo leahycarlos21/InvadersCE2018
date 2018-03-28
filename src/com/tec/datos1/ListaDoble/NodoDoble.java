@@ -1,10 +1,13 @@
 package com.tec.datos1.ListaDoble;
 
-public class NodoDoble<T> {
-    private T dato;
-    private NodoDoble<T> anterior, siguiente;
+import com.tec.datos1.Enemigos.Enemigos;
 
-    public NodoDoble(T dato) {
+public class NodoDoble{
+    int num =0;
+    private Enemigos dato;
+    public NodoDoble  anterior, siguiente;
+
+    public NodoDoble(Enemigos dato) {
         this.dato = dato;
         this.siguiente = null;
         this.anterior = null;
@@ -15,26 +18,26 @@ public class NodoDoble<T> {
      * Setters , getters
      */
 
-    public T getDato() {
+    public Enemigos getDato() {
         return this.dato;
     }
 
-    public void setDato(T dato) {
+    public void setDato(Enemigos dato) {
         this.dato = dato;
     }
 
-    public NodoDoble<T> getAnterior() {
+    public NodoDoble getAnterior() {
        return this.anterior;
     }
 
-    public void setAnterior(NodoDoble<T> anterior){
+    public void setAnterior(NodoDoble anterior){
         this.anterior=anterior;
     }
 
-    public NodoDoble<T> getSiguiente(){
+    public NodoDoble getSiguiente(){
         return this.siguiente;
     }
-    public void setSiguiente(NodoDoble<T> siguiente){
+    public void setSiguiente(NodoDoble siguiente){
         this.anterior=siguiente;
     }
 

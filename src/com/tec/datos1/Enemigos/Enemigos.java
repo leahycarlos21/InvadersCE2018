@@ -13,7 +13,7 @@ public abstract class Enemigos {
     private JuegoObjeto EnemigoObjeto;
 
     public Enemigos(int vida, JuegoObjeto EnemigoObjeto) {
-        this.vida = vida;
+        this.vida=vida;
         this.EnemigoObjeto = EnemigoObjeto;
     }
 
@@ -37,4 +37,7 @@ public abstract class Enemigos {
         return vida;
     }
 
+    public JuegoObjeto getEnemigoObjeto() {
+        return EnemigoObjeto;
+    }
 }

@@ -1,6 +1,7 @@
 package com.tec.datos1.ListaDoble;
 
 import com.tec.datos1.Enemigos.Enemigos;
+import com.tec.datos1.JuegoObjeto;
 
 public class ListaDoble {
     private NodoDoble raiz;
@@ -17,76 +18,111 @@ public class ListaDoble {
             auxNodo = auxNodo.getSiguiente();
             cant++;
         }
+       // System.out.println("Cantidad: "+cant);
         return cant;
     }
+    public void insertar(int pos, Enemigos dato) {
+        if (pos <= cantidad() + 1) {
+            NodoDoble nuevo = new NodoDoble(dato);
+            if (pos == 1) {
+                nuevo.siguiente = raiz;
+                if (raiz != null)
+                    raiz.anterior = nuevo;
 
-    public void insertar(int posicion, Object enemigo) {
-        if (posicion <= cantidad() + 1) {
-            NodoDoble nuevo = new NodoDoble(enemigo);
-            if (posicion == 1) {
-                nuevo.setSiguiente(raiz);
-                if (raiz != null) {
-                    raiz.setAnterior(nuevo);
-
-                }
                 raiz = nuevo;
-            } else if (posicion == cantidad() + 1) {
+            } else if (pos == cantidad() + 1) {
                 NodoDoble auxNodo = raiz;
-                while (auxNodo.getSiguiente() != null) {
-                    auxNodo = auxNodo.getSiguiente();
+                while (auxNodo.siguiente != null) {
+                    auxNodo = auxNodo.siguiente;
                 }
-                auxNodo.setSiguiente(nuevo);
-                nuevo.setAnterior(auxNodo);
-                nuevo.setSiguiente(null);
+                auxNodo.siguiente = nuevo;
+                nuevo.anterior = auxNodo;
+                nuevo.siguiente = null;
             } else {
                 NodoDoble auxNodo = raiz;
-                for (int i = 1; i <= posicion - 2; i++) {
-                    auxNodo = auxNodo.getSiguiente();
-                }
-                NodoDoble siguiente = auxNodo.getSiguiente();
-                auxNodo.setSiguiente(nuevo);
-                nuevo.setAnterior(auxNodo);
-                nuevo.setSiguiente(siguiente);
-                siguiente.setAnterior(nuevo);
+                for (int i = 1; i <= pos - 2; i++)
+                    auxNodo = auxNodo.siguiente;
+                NodoDoble siguiente = auxNodo.siguiente;
+                auxNodo.siguiente = nuevo;
+                nuevo.anterior = auxNodo;
+                nuevo.siguiente = siguiente;
+                siguiente.anterior = nuevo;
+            }
+
+        }
+    }
+
+
+    public void eliminar(int pos) {
+        if (pos <= cantidad()) {
+            if (pos == 1) {
+                raiz = raiz.siguiente;
+                if (raiz != null)
+                    raiz.anterior = null;
+            } else {
+                NodoDoble auxNodo=raiz;
+
+                for (int i = 1; i <= pos - 2; i++)
+                    auxNodo = auxNodo.siguiente;
+                NodoDoble prox = auxNodo.siguiente;
+                prox = prox.siguiente;
+                auxNodo.siguiente = prox;
+                if (prox != null)
+                    prox.anterior = auxNodo;
             }
         }
     }
 
-    public void eliminar(int posicion) {
-        if (posicion <= cantidad()) {
-            if (posicion == 1) {
-                raiz = raiz.getSiguiente();
-                if (raiz != null) {
-                    raiz.setAnterior(null);
-                }
-            } else {
-                NodoDoble auxNodo = raiz;
-                for (int i = 1; i <= posicion - 2; i++) {
-                    auxNodo = auxNodo.getSiguiente();
-                }
-                NodoDoble proximo = auxNodo.getSiguiente();
-                proximo = proximo.getSiguiente();
-                auxNodo.setSiguiente(proximo);
-                if (proximo != null) {
-                    proximo.setAnterior(auxNodo);
-                }
-            }
-        }
-    }
-
-    public void intercambiar(int posicion1, int posicion2) {
-        if (posicion1 <= cantidad() && posicion2 <= cantidad()) {
+    public void intercambiar(int pos1, int pos2) {
+        if (pos1 <= cantidad() && pos2 <= cantidad()) {
             NodoDoble auxNodo1 = raiz;
-            for (int i = 1; i < posicion1; i++)
-                auxNodo1 = auxNodo1.getSiguiente();
+
+            for (int i = 1; i < pos1; i++) {
+                auxNodo1 = auxNodo1.siguiente;
+                auxNodo1.getDato();
+            }
             NodoDoble auxNodo2 = raiz;
-            for (int i = 1; i < posicion2; i++)
-                auxNodo2 = auxNodo2.getSiguiente();
-            Object datoAux = auxNodo1.getDato();
+            for (int i = 1; i < pos2; i++)
+                auxNodo2 = auxNodo2.siguiente;
+            Enemigos datoAux = auxNodo1.getDato();
             auxNodo1.setDato(auxNodo2.getDato());
             auxNodo2.setDato(datoAux);
         }
+    }
 
+    public void cambiarDato(int pos, double x,double y){
+        if(pos<=cantidad()){
+            NodoDoble auxNodo = raiz;
+            for(int i=1;i<pos;i++)
+                auxNodo=auxNodo.siguiente;
+            auxNodo.getDato().actualizarPosicion(x,y);
+
+        }
+    }
+
+    public JuegoObjeto obtenerDato(int pos){
+        if(pos<=cantidad()){
+            NodoDoble auxNodo = raiz;
+            for(int i=1;i<pos;i++)
+                auxNodo=auxNodo.siguiente;
+
+            return auxNodo.getDato().getEnemigoObjeto();
+        }
+        return null;
+    }
+
+
+    public NodoDoble getRaiz(){
+        return raiz;
+    }
+    public void imprimir() {
+        NodoDoble auxNodo = raiz;
+        int num = 1;
+        while (auxNodo != null) {
+            System.out.println(num + " -> " + auxNodo.getDato().getVida());
+            num++;
+            auxNodo = auxNodo.getSiguiente();
+        }
     }
 
 }

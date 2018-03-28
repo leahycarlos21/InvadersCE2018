@@ -109,11 +109,7 @@ public class JuegoObjeto {
      * @return
      */
     public boolean colision(JuegoObjeto objeto2) {
-        if(getVista().getBoundsInParent().intersects(objeto2.getVista().getBoundsInParent())){
-            this.setMuerto();
-        }
-        return this.vivo;
-        //return getVista().getBoundsInParent().intersects(objeto2.getVista().getBoundsInParent());
+        return getVista().getBoundsInParent().intersects(objeto2.getVista().getBoundsInParent());
     }
 
 
