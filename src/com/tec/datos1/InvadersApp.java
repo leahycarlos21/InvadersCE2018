@@ -5,6 +5,7 @@ import com.tec.datos1.ListaDoble.ListaDoble;
 import com.tec.datos1.ListaDoble.NodoDoble;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,8 +24,6 @@ public class InvadersApp extends Application {
     private int posicionBala = 0;
     int nivel = 1;
     ClaseBasic Prueba1 = new ClaseBasic(1);
-    ;
-
 
     private Parent createContent() {
         /* Definiendo las dimensiones de la ventana principal */
@@ -48,15 +47,24 @@ public class InvadersApp extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                onUpdate();
+                try {
+                    onUpdate();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-
         };
         timer.start();
 
         return ventana;
     }
 
+    /**
+     * @param bala añade una vale que sale desde la posicion del jugador
+     * @param pos
+     * @param x
+     * @param y
+     */
     private void addBala(JuegoObjeto bala, int pos, double x, double y) {
         balas[pos] = bala;
         addJuegoObjeto(bala, x, y);
@@ -92,22 +100,19 @@ public class InvadersApp extends Application {
     }
 
 
-    private void onUpdate() {
+    private void onUpdate() throws InterruptedException {
 
         if (nivel == 1) {
             Prueba1 = new ClaseBasic(1);
             Prueba1.setCoordenas(5, 100);
             addJuegoObjeto(Prueba1);
             nivel++;
-        }
-        else if(nivel==100){
+        } else if (nivel == 100) {
 
             System.out.println("Ganaste prro");
 
-        }
-
-        else if(Prueba1.getListaEnemigos().cantidad()==0){
-            nivel=100;
+        } else if (Prueba1.getListaEnemigos().cantidad() == 0) {
+            nivel = 100;
         }
 
         int posEnemigoEliminar = 0;
@@ -118,21 +123,20 @@ public class InvadersApp extends Application {
                 if (balas[i].colision(auxLista.getDato().getEnemigoObjeto())) {
 
                     balas[i].setMuerto();
-                    Prueba1.getListaEnemigos().obtenerDato(pos).setMuerto();
+                    Prueba1.getListaEnemigos().obtenerDato(pos + 1).setMuerto();
 
-                    posEnemigoEliminar = pos+1;
+                    posEnemigoEliminar = pos + 1;
+                    //ver esta madrePrueba1.getListaEnemigos().obtenerDato(posEnemigoEliminar).cambioColor();
+
+                    Thread.sleep(100);
 
                     this.ventana.getChildren().removeAll(new Node[]{balas[i].getVista(), Prueba1.getListaEnemigos().obtenerDato(pos + 1).getVista()});
+
                     break;
                 }
                 auxLista = auxLista.siguiente;
                 pos++;
             }
-        }
-        if (posEnemigoEliminar != 0) {
-            Prueba1.eliminarPosicion(posEnemigoEliminar);
-            Prueba1.getListaEnemigos().imprimir();
-            posEnemigoEliminar = 0;
         }
         for (int i = 0; i < balas.length; i++) {
             if (balas[i].isVivo() == false) {
@@ -140,13 +144,57 @@ public class InvadersApp extends Application {
             }
             balas[i].update();
         }
-        int num=1;
-        while (num<Prueba1.getListaEnemigos().cantidad()){
+        if (posEnemigoEliminar != 0) {
+            Prueba1.eliminarPosicion(posEnemigoEliminar);
+            Prueba1.setCoordenadas(posEnemigoEliminar);
+            Prueba1.getListaEnemigos().imprimir();
+        }
+
+        int num = 1;
+        double velocidad = 0.1;
+        boolean cambio1=false;
+
+        while (num <= Prueba1.getListaEnemigos().cantidad()) {
+            //   if (Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).getVista().getBoundsInParent().getMaxX() > 40.0){
+
+            /** if (Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).getVista().getTranslateX() > 575) {
+             velocidad *= -1;
+
+             }*/
+            if (Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).getPosicion()[0] > 558&& cambio1==false) {
+                cambio1=true;
+                velocidad = -0.1;
+                System.out.println("ENTRO");
+                num = 1;
+                while(num <= Prueba1.getListaEnemigos().cantidad()){
+                    Prueba1.getListaEnemigos().obtenerDato(num).setVelocidad(new Point2D(0, 0));
+                    double[] pos= Prueba1.getListaEnemigos().obtenerDato(num).getPosicion();
+                    Prueba1.getListaEnemigos().obtenerDato(num).setPosicion(pos[0],pos[1]+3);
+                num++;
+                }
+                num=1;
+
+                //Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).setVelocidad(new Point2D(0, 0));
+                //Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).setVelocidad(Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).getVelocidad().normalize().add(velocidad, 0));
+                //Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).setVelocidad(Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).getVelocidad().normalize().add(velocidad, 0));
+                //Prueba1.getListaEnemigos().obtenerDato(num).setVelocidad(Prueba1.getListaEnemigos().obtenerDato(num).getVelocidad().normalize().add(velocidad, 1));
+                //Prueba1.getListaEnemigos().obtenerDato(num).setVelocidad(Prueba1.getListaEnemigos().obtenerDato(num).getVelocidad().normalize().add(-velocidad, 0));
+            }
+            System.out.println("Velocidad es " + Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).getVelocidad().getX());
+            System.out.println("Valor num es " + num);
+
+            System.out.println(Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).getPosicion()[0]);
+            double[] coordenadas = Prueba1.getListaEnemigos().obtenerDato(num).getPosicion();
+            Prueba1.getListaEnemigos().obtenerDato(num).setVelocidad(Prueba1.getListaEnemigos().obtenerDato(num).getVelocidad().normalize().add(velocidad, 0));
             Prueba1.getListaEnemigos().obtenerDato(num).update();
             num++;
         }
-
         this.jugador.update();
+
+    }
+
+    public void resetVelocidad() {
+
     }
 
 
@@ -165,8 +213,8 @@ public class InvadersApp extends Application {
 
             } else if (e.getCode() == KeyCode.SPACE) {
                 JuegoObjeto bala = new Bala();
-                /*Reutilzia los espacios del array balas, para
-                 * imprimilas en la pantalla*/
+                /**Reutilzia los espacios del array balas, para
+                 ** imprimilas en la pantalla*/
                 if (posicionBala >= balas.length) {
                     posicionBala = 0;
                 }
@@ -174,15 +222,6 @@ public class InvadersApp extends Application {
                 addBala(bala, posicionBala, jugador.getVista().getTranslateX() + 15, jugador.getVista().getTranslateY());
                 posicionBala += 1;
 
-              /*  ClaseBasic Prueba1 = new ClaseBasic(8);
-               // Prueba1.getListaEnemigos().eliminar(5);
-                Prueba1.eliminarPosicion(2);
-                Prueba1.eliminarPosicion(3);
-                Prueba1.getListaEnemigos().intercambiar(1,6);
-
-                Prueba1.getListaEnemigos().imprimir();
-                //Prueba1.agregarEnemigos();
-               // System.out.println(Prueba1.getListaEnemigos().cantidad());*/
 
             }
         });

@@ -4,6 +4,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 public class JuegoObjeto {
     private Node vista;
@@ -17,6 +18,7 @@ public class JuegoObjeto {
     public JuegoObjeto() {
         this.vista = new Circle(5, 5, 5, Color.BLACK);
     }
+
 
     /**
      * actualiza la vista que va a tener el objeto en la interfaz
@@ -108,8 +110,20 @@ public class JuegoObjeto {
      * @param objeto2
      * @return
      */
+
+
     public boolean colision(JuegoObjeto objeto2) {
         return getVista().getBoundsInParent().intersects(objeto2.getVista().getBoundsInParent());
+    }
+
+    public void cambioColor(){
+
+        double var1=this.getVista().getTranslateX();
+        double var2=this.getVista().getTranslateY();
+
+        this.vista=new Rectangle(40, 40,Color.BLACK);
+        this.vista.setTranslateX(var1);
+        this.vista.setTranslateY(var2);
     }
 
 

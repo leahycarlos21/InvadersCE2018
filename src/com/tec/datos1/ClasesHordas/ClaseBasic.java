@@ -9,6 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class ClaseBasic {
     private ListaDoble listaEnemigos = new ListaDoble();
 
@@ -30,26 +33,10 @@ public class ClaseBasic {
         this.listaEnemigos.insertar(posicion, generador);
     }
 
-    public void eliminarPosicion(int posicion) {
+    public void eliminarPosicion(int posicion){
         this.listaEnemigos.eliminar(posicion);
-        System.out.println("pos es " + posicion);
-        if (posicion <= this.listaEnemigos.cantidad() - 3) {
-            double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getPosicion();
 
-            int num = posicion;
-            System.out.println("daaaaaaaaaaaaaaan" + num);
-            while (num >= 1) {
-                listaEnemigos.cambiarDato(num, coordenada[0], coordenada[1]);
-                coordenada[0] -= 50;
-                num--;
-            }
-
-            //setCoordenas(coordenada[0], coordenada[1]);
-
-        } else {
-            double[] coordenada = this.listaEnemigos.obtenerDato(1).getPosicion();
-            setCoordenas(coordenada[0], coordenada[1]);
-        }
+        //this.listaEnemigos.obtenerDato(posicion).getVista().getScene().fillProperty().setValue(Color.MAGENTA);
 
     }
 
@@ -63,6 +50,26 @@ public class ClaseBasic {
         return listaEnemigos;
     }
 
+    public  void setCoordenadas(int posicion) throws InterruptedException {
+      //  Thread.sleep(500);
+
+        if (posicion <= this.listaEnemigos.cantidad() - 3) {
+            double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getPosicion();
+
+            int num = posicion;
+            System.out.println("daaaaaaaaaaaaaaan" + num);
+            while (num >= 1) {
+                listaEnemigos.cambiarDato(num, coordenada[0], coordenada[1]);
+                coordenada[0] -= 50;
+                num--;
+            }
+
+        } else {
+            double[] coordenada = this.listaEnemigos.obtenerDato(1).getPosicion();
+            setCoordenas(coordenada[0], coordenada[1]);
+        }
+
+    }
     public void setCoordenas(double x, double y) {
         int num = 1;
         System.out.println("Largo es de " + listaEnemigos.cantidad());

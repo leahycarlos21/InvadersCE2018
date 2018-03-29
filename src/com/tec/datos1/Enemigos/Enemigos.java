@@ -9,7 +9,6 @@ public abstract class Enemigos {
     private boolean vivo = true;
     private double posEjeX;
     private double posEjeY;
-
     private JuegoObjeto EnemigoObjeto;
 
     public Enemigos(int vida, JuegoObjeto EnemigoObjeto) {
@@ -36,6 +35,8 @@ public abstract class Enemigos {
     public int getVida(){
         return vida;
     }
+
+
 
     public JuegoObjeto getEnemigoObjeto() {
         return EnemigoObjeto;
