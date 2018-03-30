@@ -3,7 +3,6 @@ package com.tec.datos1.ListaDoble;
 import com.tec.datos1.Enemigos.Enemigos;
 
 public class NodoDoble{
-    int num =0;
     private Enemigos dato;
     public NodoDoble  anterior, siguiente;
 

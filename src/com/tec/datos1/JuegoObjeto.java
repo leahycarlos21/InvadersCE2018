@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 
 public class JuegoObjeto {
     private Node vista;
+    private int vida;
     private Point2D velocidad = new Point2D(0, 0);
     private boolean vivo = true;
 
@@ -50,6 +51,14 @@ public class JuegoObjeto {
         posiciones[1] = this.vista.getTranslateY();
         return posiciones;
 
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 
     public Node getVista() {
@@ -113,6 +122,7 @@ public class JuegoObjeto {
 
 
     public boolean colision(JuegoObjeto objeto2) {
+
         return getVista().getBoundsInParent().intersects(objeto2.getVista().getBoundsInParent());
     }
 
@@ -124,6 +134,15 @@ public class JuegoObjeto {
         this.vista=new Rectangle(40, 40,Color.BLACK);
         this.vista.setTranslateX(var1);
         this.vista.setTranslateY(var2);
+    }
+
+    public void restarVida(){
+        this.vida=vida-1;
+        if(this.vida ==0)
+            this.vivo=false;
+
+        System.out.print("restarVida da "+this.vida);
+
     }
 
 

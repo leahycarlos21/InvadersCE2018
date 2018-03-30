@@ -17,7 +17,9 @@ public class ClaseBasic {
 
     public ClaseBasic(int nivelVida) {
         for (int i = 1; i <= 8; i++) {
-            agregarEnemigos(i, nivelVida);
+
+            agregarEnemigo(i, nivelVida);
+
         }
         ///listaEnemigos.imprimir();
     }
@@ -27,10 +29,14 @@ public class ClaseBasic {
      * @param nivelVida actualiza la vida de los enemigos antes de introducirlos
      *                  a la lista
      */
-    public void agregarEnemigos(int posicion, int nivelVida) {
-        Enemigos generador = FactoryEnemigos.getEnemigo(" ");
-        generador.actualizarVida(posicion);
+    public void agregarEnemigo(int posicion, int nivelVida) {
+        Enemigos generador = FactoryEnemigos.getEnemigo(nivelVida," ",Color.RED);
+        if(posicion%2==0){
+             generador = FactoryEnemigos.getEnemigo(nivelVida," ",Color.WHEAT);
+        }
         this.listaEnemigos.insertar(posicion, generador);
+        System.out.println(generador.getVida());
+
     }
 
     public void eliminarPosicion(int posicion){
@@ -53,7 +59,9 @@ public class ClaseBasic {
     public  void setCoordenadas(int posicion) throws InterruptedException {
       //  Thread.sleep(500);
 
-        if (posicion <= this.listaEnemigos.cantidad() - 3) {
+
+
+            if (posicion <= this.listaEnemigos.cantidad() - 3) {
             double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getPosicion();
 
             int num = posicion;
@@ -79,6 +87,5 @@ public class ClaseBasic {
             num++;
             System.out.println("EL valor de X es " + x);
         }
-        // this.listaEnemigos.getRaiz().getDato().actualizarPosicion(x,y);
     }
 }

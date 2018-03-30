@@ -12,8 +12,9 @@ public abstract class Enemigos {
     private JuegoObjeto EnemigoObjeto;
 
     public Enemigos(int vida, JuegoObjeto EnemigoObjeto) {
-        this.vida=vida;
+        this.vida = vida;
         this.EnemigoObjeto = EnemigoObjeto;
+        this.EnemigoObjeto.setVida(vida);
     }
 
     public void actualizarPosicion(double x, double y) {
@@ -25,17 +26,11 @@ public abstract class Enemigos {
     public void actualizarVida(int vida) {
         this.vida = vida;
     }
-    public void restarVida(){
-        if(this.vida ==0){
-            this.vivo=false;
-            this.EnemigoObjeto.setMuerto();
-        }
-        this.vida-=1;
-    }
-    public int getVida(){
+
+
+    public int getVida() {
         return vida;
     }
-
 
 
     public JuegoObjeto getEnemigoObjeto() {

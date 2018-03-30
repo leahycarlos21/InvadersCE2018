@@ -7,11 +7,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class FactoryEnemigos {
-    public static Enemigos getEnemigo(String tipo) {
+    public static Enemigos getEnemigo(int vida, String tipo,Color color) {
         if (tipo.equals("boss")) {
-            return new EnemigoJefe(1,new JuegoObjeto(new Rectangle(40, 40, Color.CORAL)));
+            return new EnemigoJefe(vida,new JuegoObjeto(new Rectangle(40, 40, color)));
         } else {
-            return new EnemigoNormal(1,new JuegoObjeto(new Rectangle(40, 40, Color.RED)));
+            return new EnemigoNormal(vida,new JuegoObjeto(new Rectangle(40, 40, color)));
         }
     }
 }
