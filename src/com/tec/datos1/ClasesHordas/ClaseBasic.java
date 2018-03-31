@@ -6,6 +6,7 @@ import com.tec.datos1.FactoryEnemigos;
 import com.tec.datos1.JuegoObjeto;
 import com.tec.datos1.ListaDoble.ListaDoble;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -21,7 +22,6 @@ public class ClaseBasic {
             agregarEnemigo(i, nivelVida);
 
         }
-        ///listaEnemigos.imprimir();
     }
 
     /**
@@ -41,6 +41,7 @@ public class ClaseBasic {
 
     public void eliminarPosicion(int posicion){
         this.listaEnemigos.eliminar(posicion);
+
 
         //this.listaEnemigos.obtenerDato(posicion).getVista().getScene().fillProperty().setValue(Color.MAGENTA);
 
@@ -62,7 +63,7 @@ public class ClaseBasic {
 
 
             if (posicion <= this.listaEnemigos.cantidad() - 3) {
-            double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getPosicion();
+            double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getEnemigoObjeto().getPosicion();
 
             int num = posicion;
             System.out.println("daaaaaaaaaaaaaaan" + num);
@@ -73,7 +74,7 @@ public class ClaseBasic {
             }
 
         } else {
-            double[] coordenada = this.listaEnemigos.obtenerDato(1).getPosicion();
+            double[] coordenada = this.listaEnemigos.obtenerDato(1).getEnemigoObjeto().getPosicion();
             setCoordenas(coordenada[0], coordenada[1]);
         }
 
@@ -87,5 +88,12 @@ public class ClaseBasic {
             num++;
             System.out.println("EL valor de X es " + x);
         }
+    }
+
+    public void actualizarDatos(){
+
+    }
+    public void actualizarDatos(Pane ventana){
+
     }
 }

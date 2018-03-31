@@ -1,7 +1,6 @@
 package com.tec.datos1.ListaDoble;
 
 import com.tec.datos1.Enemigos.Enemigos;
-import com.tec.datos1.JuegoObjeto;
 
 public class ListaDoble {
     private NodoDoble raiz;
@@ -100,13 +99,13 @@ public class ListaDoble {
         }
     }
 
-    public JuegoObjeto obtenerDato(int pos){
+    public Enemigos obtenerDato(int pos){
         if(pos<=cantidad()){
             NodoDoble auxNodo = raiz;
             for(int i=1;i<pos;i++)
                 auxNodo=auxNodo.siguiente;
 
-            return auxNodo.getDato().getEnemigoObjeto();
+            return auxNodo.getDato();
         }
         return null;
     }
