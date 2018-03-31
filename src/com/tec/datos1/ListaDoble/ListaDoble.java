@@ -1,6 +1,7 @@
 package com.tec.datos1.ListaDoble;
 
 import com.tec.datos1.Enemigos.Enemigos;
+import com.tec.datos1.JuegoObjeto;
 
 public class ListaDoble {
     private NodoDoble raiz;
@@ -17,9 +18,10 @@ public class ListaDoble {
             auxNodo = auxNodo.getSiguiente();
             cant++;
         }
-       // System.out.println("Cantidad: "+cant);
+        // System.out.println("Cantidad: "+cant);
         return cant;
     }
+
     public void insertar(int pos, Enemigos dato) {
         if (pos <= cantidad() + 1) {
             NodoDoble nuevo = new NodoDoble(dato);
@@ -59,7 +61,7 @@ public class ListaDoble {
                 if (raiz != null)
                     raiz.anterior = null;
             } else {
-                NodoDoble auxNodo=raiz;
+                NodoDoble auxNodo = raiz;
 
                 for (int i = 1; i <= pos - 2; i++)
                     auxNodo = auxNodo.siguiente;
@@ -89,21 +91,21 @@ public class ListaDoble {
         }
     }
 
-    public void cambiarDato(int pos, double x,double y){
-        if(pos<=cantidad()){
+    public void cambiarDato(int pos, double x, double y) {
+        if (pos <= cantidad()) {
             NodoDoble auxNodo = raiz;
-            for(int i=1;i<pos;i++)
-                auxNodo=auxNodo.siguiente;
-            auxNodo.getDato().actualizarPosicion(x,y);
+            for (int i = 1; i < pos; i++)
+                auxNodo = auxNodo.siguiente;
+            auxNodo.getDato().actualizarPosicion(x, y);
 
         }
     }
 
-    public Enemigos obtenerDato(int pos){
-        if(pos<=cantidad()){
+    public Enemigos obtenerDato(int pos) {
+        if (pos <= cantidad()) {
             NodoDoble auxNodo = raiz;
-            for(int i=1;i<pos;i++)
-                auxNodo=auxNodo.siguiente;
+            for (int i = 1; i < pos; i++)
+                auxNodo = auxNodo.siguiente;
 
             return auxNodo.getDato();
         }
@@ -111,9 +113,10 @@ public class ListaDoble {
     }
 
 
-    public NodoDoble getRaiz(){
+    public NodoDoble getRaiz() {
         return raiz;
     }
+
     public void imprimir() {
         NodoDoble auxNodo = raiz;
         int num = 1;

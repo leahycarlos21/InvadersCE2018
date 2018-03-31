@@ -1,6 +1,7 @@
 package com.tec.datos1;
 
 import com.tec.datos1.ClasesHordas.ClaseA;
+import com.tec.datos1.ClasesHordas.ClaseB;
 import com.tec.datos1.ClasesHordas.ClaseBasic;
 import com.tec.datos1.ListaDoble.ListaDoble;
 import com.tec.datos1.ListaDoble.NodoDoble;
@@ -43,7 +44,8 @@ public class InvadersApp extends Application {
     boolean cambio2 = false;
     boolean estadoJuego = true;
     // ClaseBasic Prueba2 = new ClaseBasic(1);
-    ClaseBasic Prueba1 = new ClaseA(1);
+    ClaseBasic Prueba3 = new ClaseA(1);
+    ClaseBasic Prueba1 = new ClaseB(1);
     private String datosJugador = "Nivel: " + 1 + "Puntaje: " + 0;
     Text text1 = new Text(25, 25, datosJugador);
 
@@ -156,7 +158,9 @@ public class InvadersApp extends Application {
         ventana.getChildren().add(text1);
         if (this.jugador.getEstadisticas().getNivelAlcanzado() == 0) {
             //Prueba1 = new ClaseBasic(1);
-            Prueba1 = new ClaseA(1);
+
+            Prueba1 = new ClaseB(1);////////------------------------------------------------CAMBIAR ESTO
+
             Prueba1.setCoordenas(5, 100);
             addJuegoObjeto(Prueba1);
             this.jugador.getEstadisticas().setNivelAlcanzado(this.jugador.getEstadisticas().getNivelAlcanzado() + 1);
@@ -178,6 +182,7 @@ public class InvadersApp extends Application {
                     balas[i].setMuerto();
                     System.out.println("Vida es " + Prueba1.getListaEnemigos().obtenerDato(pos + 1).getEnemigoObjeto().getVida());
                     Prueba1.getListaEnemigos().obtenerDato(pos + 1).getEnemigoObjeto().restarVida();
+                    Prueba1.getListaEnemigos().obtenerDato(pos + 1).setVida(Prueba1.getListaEnemigos().obtenerDato(pos + 1).getEnemigoObjeto().getVida());///VER esto-------------------------
                     System.out.println("Vida es " + Prueba1.getListaEnemigos().obtenerDato(pos + 1).getEnemigoObjeto().getVida());
                     if (Prueba1.getListaEnemigos().obtenerDato(pos + 1).getEnemigoObjeto().getVida() == 0) {
                         // Prueba1.getListaEnemigos().obtenerDato(pos + 1).setMuerto();
@@ -214,8 +219,11 @@ public class InvadersApp extends Application {
 
         int num = 1;
 
-
+        if (Prueba1 instanceof ClaseB)
+            //System.out.println(Prueba1.getClass().getClassLoader());
+            Prueba1.actualizarDatos(ventana);
         while (num <= Prueba1.getListaEnemigos().cantidad()) {
+
 
             if (Prueba1.getListaEnemigos().obtenerDato(Prueba1.getListaEnemigos().cantidad()).getEnemigoObjeto().getPosicion()[1] > 430) {
                 System.out.println("Your dead");
@@ -239,6 +247,9 @@ public class InvadersApp extends Application {
                 resetVelocidad();
 
             }
+            /**
+             * Si la fila llega hasta el final, jugador pierde
+             */
             if (estadoJuego == false) {
                 System.out.print("------------------------");
                 String GameOver = "\n Perdiste:" + "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
@@ -248,7 +259,7 @@ public class InvadersApp extends Application {
                 ventana.getChildren().add(text2);
 
             }
-            ;
+
             Prueba1.getListaEnemigos().obtenerDato(num).getEnemigoObjeto().setVelocidad(new Point2D(velocidad, 0));
             Prueba1.getListaEnemigos().obtenerDato(num).getEnemigoObjeto().update();
             num++;
@@ -258,9 +269,7 @@ public class InvadersApp extends Application {
         this.jugador.getJugadorObjeto().update();
 
 
-        if (Prueba1 instanceof ClaseA)
-            //System.out.println(Prueba1.getClass().getClassLoader());
-            Prueba1.actualizarDatos(ventana);
+
     }
 
     /**
@@ -297,7 +306,7 @@ public class InvadersApp extends Application {
             } else if (e.getCode() == KeyCode.SPACE) {
                 JuegoObjeto bala = new Bala();
                 /**Reutilzia los espacios del array balas, para
-                 ** imprimilas en la pantalla*/
+                 ** imprimirlas en la pantalla*/
                 if (posicionBala >= balas.length) {
                     posicionBala = 0;
                 }

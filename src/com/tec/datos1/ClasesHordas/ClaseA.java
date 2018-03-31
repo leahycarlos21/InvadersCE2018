@@ -30,33 +30,30 @@ public class ClaseA extends ClaseBasic {
 
     }
 
-    @Override
     /**
      * Revisa si el jefe sigue vivo, si retorna false, elimina todos los demás enemigos
      */
+    @Override
     public void actualizarDatos(Pane ventana) {
-        boolean jefeVivo=false;
+        boolean jefeVivo = false;
         for (int i = 1; i <= this.getListaEnemigos().cantidad(); i++) {
-            if(this.getListaEnemigos().obtenerDato(i).getTipo()==1){
-                jefeVivo=true;
-               //
+            if (this.getListaEnemigos().obtenerDato(i).getTipo() == 1) {
+                jefeVivo = true;
             }
         }
-        if(jefeVivo==false){
+        if (jefeVivo == false) {
             eliminarNormales(ventana);
         }
-        System.out.println("---------------------------------------El jefe esta"+jefeVivo);
-
     }
 
+
     /**
-     *
      * @param ventana La ventana, es el Pane de la interfaz, se debe quitar primero de la interfaz y
      *                luego de la lista
      */
-    public void eliminarNormales(Pane ventana){
+    public void eliminarNormales(Pane ventana) {
         for (int i = 1; i <= this.getListaEnemigos().cantidad(); i++) {
-            ventana.getChildren().removeAll( this.getListaEnemigos().obtenerDato(i).getEnemigoObjeto().getVista());
+            ventana.getChildren().removeAll(this.getListaEnemigos().obtenerDato(i).getEnemigoObjeto().getVista());
             this.getListaEnemigos().eliminar(i);
 
 
