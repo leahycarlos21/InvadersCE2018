@@ -30,16 +30,16 @@ public class ClaseBasic {
      *                  a la lista
      */
     public void agregarEnemigo(int posicion, int nivelVida) {
-        Enemigos generador = FactoryEnemigos.getEnemigo(nivelVida," ",Color.RED);
-        if(posicion%2==0){
-             generador = FactoryEnemigos.getEnemigo(nivelVida," ",Color.WHEAT);
+        Enemigos generador = FactoryEnemigos.getEnemigo(nivelVida, " ", Color.RED);
+        if (posicion % 2 == 0) {
+            generador = FactoryEnemigos.getEnemigo(nivelVida, " ", Color.WHEAT);
         }
         this.listaEnemigos.insertar(posicion, generador);
         System.out.println(generador.getVida());
 
     }
 
-    public void eliminarPosicion(int posicion){
+    public void eliminarPosicion(int posicion) {
         this.listaEnemigos.eliminar(posicion);
 
 
@@ -57,18 +57,16 @@ public class ClaseBasic {
         return listaEnemigos;
     }
 
-    public  void setCoordenadas(int posicion) throws InterruptedException {
-      //  Thread.sleep(500);
-
-
-
-            if (posicion <= this.listaEnemigos.cantidad() - 3) {
+    public void setCoordenadas(int posicion) {
+        if (posicion <= this.listaEnemigos.cantidad() - 3) {
             double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getEnemigoObjeto().getPosicion();
 
             int num = posicion;
             System.out.println("daaaaaaaaaaaaaaan" + num);
             while (num >= 1) {
-                listaEnemigos.cambiarDato(num, coordenada[0], coordenada[1]);
+                //listaEnemigos.cambiarDato(num, coordenada[0], coordenada[1]);
+                listaEnemigos.obtenerDato(num).getEnemigoObjeto().setPosicion(coordenada[0], coordenada[1]);
+                listaEnemigos.obtenerDato(num).getEnemigoObjeto().update();
                 coordenada[0] -= 50;
                 num--;
             }
@@ -78,7 +76,9 @@ public class ClaseBasic {
             setCoordenas(coordenada[0], coordenada[1]);
         }
 
+
     }
+
     public void setCoordenas(double x, double y) {
         int num = 1;
         System.out.println("Largo es de " + listaEnemigos.cantidad());
@@ -90,10 +90,29 @@ public class ClaseBasic {
         }
     }
 
-    public void actualizarDatos(){
+    public void actualizarPosiciones(int posicion) {
+        if (posicion <= this.listaEnemigos.cantidad() - 3) {
+            double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getEnemigoObjeto().getPosicion();
+
+            int num = posicion;
+            System.out.println("daaaaaaaaaaaaaaan" + num);
+            while (num >= 1) {
+                //listaEnemigos.cambiarDato(num, coordenada[0], coordenada[1]);
+                listaEnemigos.obtenerDato(num).getEnemigoObjeto().setPosicion(coordenada[0], coordenada[1]);
+                coordenada[0] -= 50;
+                num--;
+            }
+
+        }
 
     }
-    public void actualizarDatos(Pane ventana){
+
+    public void actualizarDatos() {
+
+    }
+
+    public void actualizarDatos(Pane ventana) {
+
 
     }
 }

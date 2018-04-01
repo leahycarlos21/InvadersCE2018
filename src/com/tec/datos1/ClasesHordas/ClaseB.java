@@ -13,44 +13,31 @@ public class ClaseB extends ClaseA {
     public void actualizarDatos(Pane ventana) {
         if (getListaEnemigos().cantidad() > 1) {
             int posicionJefe;
-            int posicionCambio = 3;
             Random aleatorio = new Random();
             //genera un numero entre 1 y 5 y lo guarda en la variable aleatorio
+            int posicionCambio = 1+ aleatorio.nextInt(this.getListaEnemigos().cantidad());
             int numRandom = 1 + aleatorio.nextInt(100);
 
-            if (numRandom % 97 == 0) {
-                System.out.println("numRandom da------------------- " + numRandom);
-
+            if (numRandom % 97 == 0) {/**Al cumplir la condicion, se realiza un cambio de la posicion del jefe con otra */
                 posicionJefe = buscarJefe();
+                this.getListaEnemigos().intercambiar(posicionJefe,posicionCambio);
                 // this.getListaEnemigos().intercambiar(posicionJefe,3);
-                double[] coordenas2 = this.getListaEnemigos().obtenerDato(posicionJefe).getEnemigoObjeto().getPosicion();
-
                 double[] coordenas = this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().getPosicion();
-                this.getListaEnemigos().cambiarDato(posicionJefe, coordenas[0], coordenas[1]);
-                this.getListaEnemigos().cambiarDato(posicionCambio, coordenas2[0], coordenas2[1]);
+                double[] coordenas2 = this.getListaEnemigos().obtenerDato(posicionJefe).getEnemigoObjeto().getPosicion();
+                this.getListaEnemigos().obtenerDato(posicionJefe).getEnemigoObjeto().setPosicion(coordenas[0], coordenas[1]);
+                //this.getListaEnemigos().cambiarDato(posicionJefe, coordenas[0], coordenas[1]);
+                this.getListaEnemigos().obtenerDato(posicionJefe).getEnemigoObjeto().update();
+                this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().setPosicion(coordenas2[0], coordenas2[1]);
+                //this.getListaEnemigos().cambiarDato(posicionCambio, coordenas2[0], coordenas2[1]);
+                this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().update();
+
 
                 this.getListaEnemigos().imprimir();
 
 
             }
+
         }
-       /* for (int i = 1; i <= this.getListaEnemigos().cantidad(); i++) {
-            if (this.getListaEnemigos().obtenerDato(i).getTipo() == 1) {
-                System.out.println("Entro");
-
-                    posicionJefe = i;
-                    Random aleatorio = new Random();
-                    //genera un numero entre 1 y 5 y lo guarda en la variable aleatorio
-                    int numeroAleatorio = 1 + aleatorio.nextInt(this.getListaEnemigos().cantidad());
-                    this.getListaEnemigos().intercambiar(posicionJefe, numeroAleatorio-1);
-                    this.getListaEnemigos().imprimir();
-                    break;
-
-
-
-            }
-           /// getListaEnemigos().obtenerDato(i).getEnemigoObjeto().update();
-           */
 
 
         super.actualizarDatos(ventana);

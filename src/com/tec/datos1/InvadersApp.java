@@ -213,15 +213,27 @@ public class InvadersApp extends Application {
         if (posEnemigoEliminar != 0) {
             Prueba1.eliminarPosicion(posEnemigoEliminar);
 
+        }
+        if (Prueba1.getListaEnemigos().cantidad() != 0 && posEnemigoEliminar!=0) {
+            // Prueba1.setCoordenadas(1);
+            // Prueba1.actualizarPosiciones(posEnemigoEliminar);
+            Prueba1.setCoordenadas(posEnemigoEliminar);
+        }
 
+        if (Prueba1 instanceof ClaseB) {
+            //System.out.println(Prueba1.getClass().getClassLoader());
+            Prueba1.actualizarDatos(ventana);
+            //Prueba1.getListaEnemigos().intercambiar(1,3);
             Prueba1.getListaEnemigos().imprimir();
         }
 
+
+        this.jugador.getJugadorObjeto().update();
+
+
         int num = 1;
 
-        if (Prueba1 instanceof ClaseB)
-            //System.out.println(Prueba1.getClass().getClassLoader());
-            Prueba1.actualizarDatos(ventana);
+
         while (num <= Prueba1.getListaEnemigos().cantidad()) {
 
 
@@ -260,21 +272,29 @@ public class InvadersApp extends Application {
 
             }
 
+
             Prueba1.getListaEnemigos().obtenerDato(num).getEnemigoObjeto().setVelocidad(new Point2D(velocidad, 0));
             Prueba1.getListaEnemigos().obtenerDato(num).getEnemigoObjeto().update();
             num++;
         }
-        if (Prueba1.getListaEnemigos().cantidad() != 0)
-            Prueba1.setCoordenadas(posEnemigoEliminar);
+
+
+       /* if (Prueba1.getListaEnemigos().cantidad() != 0)
+           // Prueba1.setCoordenadas(1);
+            Prueba1.actualizarPosiciones(posEnemigoEliminar);
+           // Prueba1.setCoordenadas(posEnemigoEliminar);
         this.jugador.getJugadorObjeto().update();
+        if (Prueba1 instanceof ClaseB)
+            //System.out.println(Prueba1.getClass().getClassLoader());
+            Prueba1.actualizarDatos(ventana);
 
+    }*/
 
-
+        /**
+         * Hace que la velocidad sea cero, baje de fila de cada uno de los enemigos
+         */
     }
 
-    /**
-     * Hace que la velocidad sea cero, baje de fila de cada uno de los enemigos
-     */
     public void resetVelocidad() {
         for (int ii = 1; ii <= Prueba1.getListaEnemigos().cantidad(); ii++) {
             Prueba1.getListaEnemigos().obtenerDato(ii).getEnemigoObjeto().setVelocidad(new Point2D(0, 0));
