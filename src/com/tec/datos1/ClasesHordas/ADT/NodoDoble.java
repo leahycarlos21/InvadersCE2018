@@ -1,10 +1,10 @@
-package com.tec.datos1.ListaDoble;
+package com.tec.datos1.ClasesHordas.ADT;
 
 import com.tec.datos1.Enemigos.Enemigos;
 
-public class NodoDoble{
+public class NodoDoble implements Nodo {
     private Enemigos dato;
-    public NodoDoble  anterior, siguiente;
+    public NodoDoble anterior, siguiente;
 
     public NodoDoble(Enemigos dato) {
         this.dato = dato;
@@ -13,31 +13,33 @@ public class NodoDoble{
     }
 
     /**
-     *
      * Setters , getters
      */
-
+    @Override
     public Enemigos getDato() {
         return this.dato;
     }
 
+    @Override
     public void setDato(Enemigos dato) {
         this.dato = dato;
     }
 
     public NodoDoble getAnterior() {
-       return this.anterior;
+        return this.anterior;
     }
 
-    public void setAnterior(NodoDoble anterior){
-        this.anterior=anterior;
+    public void setAnterior(NodoDoble anterior) {
+        this.anterior = anterior;
     }
 
-    public NodoDoble getSiguiente(){
+    @Override
+    public NodoDoble getSiguiente() {
         return this.siguiente;
     }
-    public void setSiguiente(NodoDoble siguiente){
-        this.anterior=siguiente;
+
+    public void setSiguiente(NodoDoble siguiente) {
+        this.anterior = siguiente;
     }
 
 }

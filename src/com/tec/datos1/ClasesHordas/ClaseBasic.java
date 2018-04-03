@@ -1,20 +1,17 @@
 package com.tec.datos1.ClasesHordas;
 
-import com.tec.datos1.Enemigos.EnemigoNormal;
+import com.tec.datos1.ClasesHordas.ADT.Lista;
+import com.tec.datos1.ClasesHordas.ADT.ListaCircular;
+import com.tec.datos1.ClasesHordas.ADT.ListaDoble;
 import com.tec.datos1.Enemigos.Enemigos;
 import com.tec.datos1.FactoryEnemigos;
-import com.tec.datos1.JuegoObjeto;
-import com.tec.datos1.ListaDoble.ListaDoble;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-public class ClaseBasic {
+public class ClaseBasic implements Clase {
     private ListaDoble listaEnemigos = new ListaDoble();
+    public ListaCircular listaEnemigosC = new ListaCircular();
+
 
     public ClaseBasic(int nivelVida) {
         for (int i = 1; i <= 8; i++) {
@@ -24,11 +21,13 @@ public class ClaseBasic {
         }
     }
 
+
     /**
      * @param posicion  va insertando la cantidad de enemigos a la listaEnemigos
      * @param nivelVida actualiza la vida de los enemigos antes de introducirlos
      *                  a la lista
      */
+    @Override
     public void agregarEnemigo(int posicion, int nivelVida) {
         Enemigos generador = FactoryEnemigos.getEnemigo(nivelVida, " ", Color.RED);
         if (posicion % 2 == 0) {
@@ -39,24 +38,17 @@ public class ClaseBasic {
 
     }
 
+    @Override
     public void eliminarPosicion(int posicion) {
         this.listaEnemigos.eliminar(posicion);
-
-
-        //this.listaEnemigos.obtenerDato(posicion).getVista().getScene().fillProperty().setValue(Color.MAGENTA);
-
     }
 
-
-    /**
-     * adjunta los objetos de la lista al eliminar uno del centro
-     */
-
-
-    public ListaDoble getListaEnemigos() {
+    @Override
+    public Lista getListaEnemigos() {////INSERTAR INTERFAZ LISTA
         return listaEnemigos;
     }
 
+    @Override
     public void setCoordenadas(int posicion) {
         if (posicion <= this.listaEnemigos.cantidad() - 3) {
             double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getEnemigoObjeto().getPosicion();
@@ -79,9 +71,15 @@ public class ClaseBasic {
 
     }
 
+    /**
+     * Funcion auxiliar de la funcion anterior
+     *
+     * @param x
+     * @param y
+     */
+    @Override
     public void setCoordenas(double x, double y) {
         int num = 1;
-        System.out.println("Largo es de " + listaEnemigos.cantidad());
         while (num <= listaEnemigos.cantidad()) {
             listaEnemigos.cambiarDato(num, x, y);
             x += 50;
@@ -90,29 +88,19 @@ public class ClaseBasic {
         }
     }
 
-    public void actualizarPosiciones(int posicion) {
-        if (posicion <= this.listaEnemigos.cantidad() - 3) {
-            double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getEnemigoObjeto().getPosicion();
-
-            int num = posicion;
-            System.out.println("daaaaaaaaaaaaaaan" + num);
-            while (num >= 1) {
-                //listaEnemigos.cambiarDato(num, coordenada[0], coordenada[1]);
-                listaEnemigos.obtenerDato(num).getEnemigoObjeto().setPosicion(coordenada[0], coordenada[1]);
-                coordenada[0] -= 50;
-                num--;
-            }
-
-        }
-
-    }
-
-    public void actualizarDatos() {
-
-    }
-
+    @Override
     public void actualizarDatos(Pane ventana) {
 
 
+    }
+
+    @Override
+    public int cantidadLista() {
+        return this.listaEnemigos.cantidad();
+    }
+
+    @Override
+    public int tipoLista() {
+        return this.listaEnemigos.getId();
     }
 }

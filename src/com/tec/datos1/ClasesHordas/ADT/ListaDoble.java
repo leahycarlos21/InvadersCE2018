@@ -1,27 +1,28 @@
-package com.tec.datos1.ListaDoble;
+package com.tec.datos1.ClasesHordas.ADT;
 
 import com.tec.datos1.Enemigos.Enemigos;
-import com.tec.datos1.JuegoObjeto;
 
-public class ListaDoble {
+public class ListaDoble implements Lista {
     private NodoDoble raiz;
+    private int id=1;//Significa que es doble
 
     public ListaDoble() {
         raiz = null;
     }
 
-    /*retorna la cantidad de nodos de la lista**/
+    /**retorna la cantidad de nodos de la lista**/
+    @Override
     public int cantidad() {
         int cant = 0;
         NodoDoble auxNodo = raiz;
         while (auxNodo != null) {
-            auxNodo = auxNodo.getSiguiente();
+            auxNodo = auxNodo.siguiente;
             cant++;
         }
         // System.out.println("Cantidad: "+cant);
         return cant;
     }
-
+    @Override
     public void insertar(int pos, Enemigos dato) {
         if (pos <= cantidad() + 1) {
             NodoDoble nuevo = new NodoDoble(dato);
@@ -53,7 +54,7 @@ public class ListaDoble {
         }
     }
 
-
+    @Override
     public void eliminar(int pos) {
         if (pos <= cantidad()) {
             if (pos == 1) {
@@ -90,7 +91,7 @@ public class ListaDoble {
             auxNodo2.setDato(datoAux);
         }
     }
-
+    @Override
     public void cambiarDato(int pos, double x, double y) {
         if (pos <= cantidad()) {
             NodoDoble auxNodo = raiz;
@@ -100,7 +101,7 @@ public class ListaDoble {
 
         }
     }
-
+    @Override
     public Enemigos obtenerDato(int pos) {
         if (pos <= cantidad()) {
             NodoDoble auxNodo = raiz;
@@ -116,15 +117,34 @@ public class ListaDoble {
     public NodoDoble getRaiz() {
         return raiz;
     }
-
+    @Override
     public void imprimir() {
         NodoDoble auxNodo = raiz;
         int num = 1;
         while (auxNodo != null) {
             System.out.println(num + " -> " + auxNodo.getDato().getVida());
             num++;
-            auxNodo = auxNodo.getSiguiente();
+            auxNodo = auxNodo.siguiente;
         }
     }
+
+    /**
+     * utilizado para ver si es Circular o Doble en asuntos de interfaz
+     * @return
+     */
+    @Override
+    public int getId() {
+        return id;
+    }
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public void agregarInicio(Enemigos dato) {
+
+    }
+
 
 }
