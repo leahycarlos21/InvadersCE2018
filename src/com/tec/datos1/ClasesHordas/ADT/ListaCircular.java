@@ -155,7 +155,7 @@ public class ListaCircular implements Lista {
 
     @Override
     public NodoCircular getRaiz() {
-        return inicio;
+        return this.inicio;
     }
 
     @Override

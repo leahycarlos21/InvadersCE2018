@@ -12,7 +12,7 @@ public class ClaseC implements Clase {
 
     public ClaseC() {
         this.listaEnemigos.setId(2);
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i < 8; i++) {
             agregarEnemigo(i, 1);
 
 
@@ -35,6 +35,7 @@ public class ClaseC implements Clase {
     @Override
     public void eliminarPosicion(int posicion) {
         this.listaEnemigos.eliminar(posicion);
+        System.out.println("Eliminar posicion------------------"+this.listaEnemigos.cantidad());
     }
     @Override
     public void setCoordenadas(int posicion) {
