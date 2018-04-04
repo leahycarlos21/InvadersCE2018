@@ -32,8 +32,8 @@ public class InvadersApp extends Application {
     boolean estadoJuego = true;
     // ClaseBasic Prueba1 = new ClaseBasic(1);
     // ClaseBasic Prueba1 = new ClaseA(1);
-   // Clase Prueba1 = new ClaseB(1);
-     Clase Prueba1 = new ClaseB(1);
+    //Clase Prueba1 = new ClaseB(1);
+    Clase Prueba1 = new ClaseC();
     private String datosJugador = "Nivel: " + 1 + "Puntaje: " + 0;
     Text text1 = new Text(25, 25, datosJugador);
 
@@ -111,11 +111,20 @@ public class InvadersApp extends Application {
         System.out.println("ID es  " + Prueba1.tipoLista());
         if (Prueba1 instanceof ClaseC) {//Los tipos ClaseC son Listas Circulares
             System.out.println("ID es  " + Prueba1.tipoLista());
-            Nodo auxNodo = objecto.getListaEnemigos().getRaiz();
-            for (int i = 1; i <= objecto.cantidadLista(); i++) {
+            Nodo auxNodo = objecto.getListaEnemigos().getRaiz().getSiguiente();
+            do {
+                System.out.println(auxNodo.getDato().getVida());
+                ventana.getChildren().add(auxNodo.getDato().getEnemigoObjeto().getVista());//este es el ultimo
+                auxNodo=auxNodo.getSiguiente();
+
+            }while(auxNodo!=Prueba1.getListaEnemigos().getRaiz());
+          /*  for (int i = 0; i < objecto.cantidadLista(); i++) {
+                System.out.println(auxNodo.getDato().getVida());
+
                 ventana.getChildren().add(auxNodo.getDato().getEnemigoObjeto().getVista());//este es el ultimo
                 auxNodo = auxNodo.getSiguiente();
-            }
+            }*/
+            System.out.println("DATOOOSSS" + ((ClaseC) Prueba1).listaEnemigos.obtenerDato(8).getEnemigoObjeto().getVida());
         } else {//Las claseBasic e hijas, son listas dobles
             Nodo auxNodo = objecto.getListaEnemigos().getRaiz();
             while (auxNodo != null) {
@@ -153,7 +162,7 @@ public class InvadersApp extends Application {
         if (this.jugador.getEstadisticas().getNivelAlcanzado() == 0) {
             //Prueba1 = new ClaseBasic(1);
 
-            Prueba1 = new ClaseB(1);////////------------------------------------------------CAMBIAR ESTO
+            Prueba1 = new ClaseC();////////------------------------------------------------CAMBIAR ESTO
 
             Prueba1.setCoordenas(5, 100);
             addJuegoObjeto(Prueba1);
@@ -184,12 +193,16 @@ public class InvadersApp extends Application {
             for (int b = 1; b <= Prueba1.cantidadLista(); b++) {
                 if (balas[i].colision(auxLista.getDato().getEnemigoObjeto())) {
                     balas[i].setMuerto();
+                    System.out.println("------PosEnemigo1" + posEnemigoEliminar);
+
                     System.out.println("Vida es " + Prueba1.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida());
                     Prueba1.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().restarVida();
                     Prueba1.getListaEnemigos().obtenerDato(pos).setVida(Prueba1.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida());///VER esto-------------------------
 
                     if (Prueba1.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida() == 0) {
+
                         posEnemigoEliminar = pos;
+                        System.out.println("----PosEnemigo2222" + posEnemigoEliminar);
                         this.jugador.getEstadisticas().setPuntaje(this.jugador.getEstadisticas().getPuntaje() + 1);
                         Thread.sleep(100);
                         this.ventana.getChildren().removeAll(new Node[]{balas[i].getVista(), Prueba1.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVista()});
@@ -245,9 +258,13 @@ public class InvadersApp extends Application {
             balas[i].update();
         }
         /** Elimina al enemigo */
-        if (posEnemigoEliminar != 0) {
+        //System.out.println("PosicionEliminada-------------" + posEnemigoEliminar);
+
+        if(posEnemigoEliminar==0 && Prueba1.cantidadLista()==1)
             Prueba1.eliminarPosicion(posEnemigoEliminar);
-            System.out.println(Prueba1.cantidadLista());
+        if (posEnemigoEliminar != 0) {
+
+            Prueba1.eliminarPosicion(posEnemigoEliminar);
 
         }
         /**Ordena a los enemigos hacia el centro*/

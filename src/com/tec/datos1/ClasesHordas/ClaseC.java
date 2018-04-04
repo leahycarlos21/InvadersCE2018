@@ -12,8 +12,8 @@ public class ClaseC implements Clase {
 
     public ClaseC() {
         this.listaEnemigos.setId(2);
-        for (int i = 1; i < 8; i++) {
-            agregarEnemigo(i, 1);
+        for (int i = 0; i < 8; i++) {
+            agregarEnemigo(i, i+1);
 
 
         }
@@ -29,7 +29,8 @@ public class ClaseC implements Clase {
             generador = FactoryEnemigos.getEnemigo(nivelVida, " ", Color.SEAGREEN);
         }
         this.listaEnemigos.agregarInicio(generador);
-        System.out.println(generador.getVida());
+      //this.listaEnemigos.insertar(1,generador);
+       // System.out.println(generador.getVida());
         //listaEnemigos.listar();
     }
     @Override

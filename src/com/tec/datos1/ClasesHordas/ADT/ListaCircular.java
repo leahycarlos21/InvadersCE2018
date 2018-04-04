@@ -16,6 +16,7 @@ public class ListaCircular implements Lista {
     public boolean esVacia() {
         return this.inicio == null;
     }
+
     @Override
     public int cantidad() {
         return cantidad;
@@ -36,9 +37,12 @@ public class ListaCircular implements Lista {
         }
         cantidad++;
     }
+
     @Override
     public void insertar(int posicion, Enemigos dato) {
-        if (posicion >= 0 && posicion <= cantidad) {
+        if (esVacia()) {
+            agregarInicio(dato);
+        } else if (posicion >= 0 && posicion <= cantidad) {
             NodoCircular nuevo = new NodoCircular(dato);
             //nuevo.setDato(dato);
             if (posicion == 0) {
@@ -65,8 +69,8 @@ public class ListaCircular implements Lista {
     }
 
     @Override
-    public Enemigos obtenerDato(int posicion){
-        if ( posicion <= cantidad()) {
+    public Enemigos obtenerDato(int posicion) {
+        if (posicion <= cantidad()) {
             if (posicion == 0)
                 return inicio.getDato();
             else {
@@ -111,8 +115,10 @@ public class ListaCircular implements Lista {
     public void eliminar(int posicion) {
         if (posicion >= 0 && posicion < cantidad) {
             if (posicion == 0) {
+                inicio = inicio.getSiguiente();
                 ultimo.setSiguiente(inicio);
-            } else {
+            }
+            else {
                 NodoCircular aux = inicio;
                 for (int i = 0; i < posicion - 1; i++) {
                     aux = aux.getSiguiente();
@@ -128,6 +134,7 @@ public class ListaCircular implements Lista {
             cantidad--;
         }
     }
+
 
     @Override
     public void imprimir() {
