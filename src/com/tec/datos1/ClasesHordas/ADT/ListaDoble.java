@@ -117,6 +117,12 @@ public class ListaDoble implements Lista {
     public NodoDoble getRaiz() {
         return raiz;
     }
+
+    @Override
+    public Nodo getUltimo() {
+        return null;
+    }
+
     @Override
     public void imprimir() {
         NodoDoble auxNodo = raiz;

@@ -13,6 +13,7 @@ public interface Lista {
     void setId(int id);
     void agregarInicio(Enemigos dato);
     Nodo getRaiz();
+    Nodo getUltimo();
 
     //NodoCircular getRaiz();
     void intercambiar(int pos1,int pos2);

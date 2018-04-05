@@ -15,9 +15,7 @@ public class ClaseBasic implements Clase {
 
     public ClaseBasic(int nivelVida) {
         for (int i = 1; i <= 8; i++) {
-
             agregarEnemigo(i, nivelVida);
-
         }
     }
 
@@ -54,7 +52,6 @@ public class ClaseBasic implements Clase {
             double[] coordenada = this.listaEnemigos.obtenerDato(posicion).getEnemigoObjeto().getPosicion();
 
             int num = posicion;
-            System.out.println("daaaaaaaaaaaaaaan" + num);
             while (num >= 1) {
                 //listaEnemigos.cambiarDato(num, coordenada[0], coordenada[1]);
                 listaEnemigos.obtenerDato(num).getEnemigoObjeto().setPosicion(coordenada[0], coordenada[1]);

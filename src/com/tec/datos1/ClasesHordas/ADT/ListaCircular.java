@@ -23,7 +23,23 @@ public class ListaCircular implements Lista {
     }
 
     public void agregarInicio(Enemigos dato) {
-        NodoCircular nuevo = new NodoCircular(dato);
+
+  /*      NodoCircular nuevo = new NodoCircular(dato);
+
+        if (esVacia()) {
+            inicio = nuevo;
+            ultimo = nuevo;
+            ultimo.setSiguiente(inicio);
+        } else{
+            ultimo.setSiguiente(nuevo);
+
+            nuevo.setSiguiente(inicio);ultimo = nuevo;
+        }
+        // Incrementa el contador de tamaño de la lista
+        cantidad++;
+    }*/
+    //}
+     NodoCircular nuevo = new NodoCircular(dato);
         // nuevo.setDato(dato);
 
         if (esVacia()) {
@@ -44,7 +60,6 @@ public class ListaCircular implements Lista {
             agregarInicio(dato);
         } else if (posicion >= 0 && posicion <= cantidad) {
             NodoCircular nuevo = new NodoCircular(dato);
-            //nuevo.setDato(dato);
             if (posicion == 0) {
                 nuevo.setSiguiente(inicio);
                 inicio = nuevo;
@@ -117,8 +132,7 @@ public class ListaCircular implements Lista {
             if (posicion == 0) {
                 inicio = inicio.getSiguiente();
                 ultimo.setSiguiente(inicio);
-            }
-            else {
+            } else {
                 NodoCircular aux = inicio;
                 for (int i = 0; i < posicion - 1; i++) {
                     aux = aux.getSiguiente();
@@ -163,6 +177,11 @@ public class ListaCircular implements Lista {
     @Override
     public NodoCircular getRaiz() {
         return this.inicio;
+    }
+
+    @Override
+    public NodoCircular getUltimo() {
+        return ultimo;
     }
 
     @Override
