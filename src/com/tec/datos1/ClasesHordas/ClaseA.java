@@ -9,8 +9,8 @@ import javafx.scene.paint.Color;
 import java.util.Random;
 
 public class ClaseA extends ClaseBasic {
-    public ClaseA(int nivelVida) {
-        super(nivelVida);
+    public ClaseA() {
+        super();
         insertJefe();
         this.getListaEnemigos().imprimir();
     }

@@ -13,9 +13,9 @@ public class ClaseBasic implements Clase {
     public ListaCircular listaEnemigosC = new ListaCircular();
 
 
-    public ClaseBasic(int nivelVida) {
+    public ClaseBasic() {
         for (int i = 1; i <= 8; i++) {
-            agregarEnemigo(i, nivelVida);
+            agregarEnemigo(i, 1);
         }
     }
 

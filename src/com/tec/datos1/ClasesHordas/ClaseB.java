@@ -5,8 +5,8 @@ import javafx.scene.layout.Pane;
 import java.util.Random;
 
 public class ClaseB extends ClaseA {
-    public ClaseB(int nivelVida) {
-        super(nivelVida);
+    public ClaseB() {
+        super();
     }
 
     @Override
@@ -21,24 +21,16 @@ public class ClaseB extends ClaseA {
             if (numRandom % 97 == 0) {/**Al cumplir la condicion, se realiza un cambio de la posicion del jefe con otra */
                 posicionJefe = buscarJefe();
                 this.getListaEnemigos().intercambiar(posicionJefe,posicionCambio);
-                // this.getListaEnemigos().intercambiar(posicionJefe,3);
                 double[] coordenas = this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().getPosicion();
                 double[] coordenas2 = this.getListaEnemigos().obtenerDato(posicionJefe).getEnemigoObjeto().getPosicion();
                 this.getListaEnemigos().obtenerDato(posicionJefe).getEnemigoObjeto().setPosicion(coordenas[0], coordenas[1]);
-                //this.getListaEnemigos().cambiarDato(posicionJefe, coordenas[0], coordenas[1]);
                 this.getListaEnemigos().obtenerDato(posicionJefe).getEnemigoObjeto().update();
                 this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().setPosicion(coordenas2[0], coordenas2[1]);
-                //this.getListaEnemigos().cambiarDato(posicionCambio, coordenas2[0], coordenas2[1]);
                 this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().update();
 
-
                 this.getListaEnemigos().imprimir();
-
-
             }
-
         }
-
 
         super.actualizarDatos(ventana);
     }

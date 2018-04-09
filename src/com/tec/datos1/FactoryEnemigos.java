@@ -12,9 +12,11 @@ public class FactoryEnemigos {
     public static Enemigos getEnemigo(int vida, String tipo, Color color) {
         if (tipo.equals("boss")) {
             Random aleatorio = new Random();
-            //genera un numero entre 1 y 5 y lo guarda en la variable aleatorio
-            int numeroAleatorio = 2 + aleatorio.nextInt(5);
-            System.out.println("La vida del mop es " + numeroAleatorio);
+            //genera un numero entre 3 y 5 y lo guarda en la variable aleatorio
+            int numeroAleatorio = 3 + aleatorio.nextInt(5);
+            while(numeroAleatorio>6){
+                numeroAleatorio = 3 + aleatorio.nextInt(5);
+            }
             return new EnemigoJefe(numeroAleatorio, new JuegoObjeto(new Rectangle(40, 40, color)));
         } else {
             return new EnemigoNormal(vida, new JuegoObjeto(new Rectangle(40, 40, color)));

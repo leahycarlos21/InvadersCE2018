@@ -1,6 +1,7 @@
 package com.tec.datos1.ClasesHordas.ADT;
 
 import com.tec.datos1.Enemigos.Enemigos;
+import com.tec.datos1.JuegoObjeto;
 
 public class ListaCircular implements Lista {
     private int id = 2;//2 significa que es circular
@@ -24,23 +25,7 @@ public class ListaCircular implements Lista {
 
     public void agregarInicio(Enemigos dato) {
 
-  /*      NodoCircular nuevo = new NodoCircular(dato);
-
-        if (esVacia()) {
-            inicio = nuevo;
-            ultimo = nuevo;
-            ultimo.setSiguiente(inicio);
-        } else{
-            ultimo.setSiguiente(nuevo);
-
-            nuevo.setSiguiente(inicio);ultimo = nuevo;
-        }
-        // Incrementa el contador de tamaño de la lista
-        cantidad++;
-    }*/
-    //}
-     NodoCircular nuevo = new NodoCircular(dato);
-        // nuevo.setDato(dato);
+        NodoCircular nuevo = new NodoCircular(dato);
 
         if (esVacia()) {
             this.inicio = nuevo;
@@ -97,22 +82,6 @@ public class ListaCircular implements Lista {
             }
         }
         return null;
-    }
-
-    public void editarPosicion(int posicion, Enemigos dato) {
-        if (posicion >= 0 && posicion < cantidad) {
-            if (posicion == 0) {
-                inicio.setDato(dato);
-            } else {
-                NodoCircular aux = inicio;
-                // Recorre la lista hasta lleger al nodo anterior al eliminar.
-                for (int i = 0; i < posicion; i++) {
-                    aux = aux.getSiguiente();
-                }
-
-                aux.setDato(dato);
-            }
-        }
     }
 
     @Override
@@ -187,7 +156,21 @@ public class ListaCircular implements Lista {
     @Override
     public void intercambiar(int pos1, int pos2) {
 
+        NodoCircular auxNodo1 = getRaiz();
+        for (int i=0;i<pos1;i++){
+            auxNodo1=auxNodo1.getSiguiente();
+            auxNodo1.getDato();
+        }
+        NodoCircular auxNodo2 = getRaiz();
+        for(int i=0;i<pos2;i++){
+            auxNodo2=auxNodo2.getSiguiente();
+        }
+        Enemigos datoAux = auxNodo1.getDato();
+        auxNodo1.setDato(auxNodo2.getDato());
+        auxNodo2.setDato(datoAux);
+
     }
+
 
 }
 
