@@ -1,6 +1,6 @@
-package com.tec.datos1;
+package com.tec.datos1.Jugabilidad;
 
-import com.tec.datos1.ClasesHordas.*;
+import com.tec.datos1.ClasesInvasores.*;
 
 public class ControlNivel {
     private Clase[] HordaEnemigos = new Clase[3];

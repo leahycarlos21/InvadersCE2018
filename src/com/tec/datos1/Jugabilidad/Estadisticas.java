@@ -1,4 +1,4 @@
-package com.tec.datos1;
+package com.tec.datos1.Jugabilidad;
 
 public class Estadisticas {
     private int puntaje;

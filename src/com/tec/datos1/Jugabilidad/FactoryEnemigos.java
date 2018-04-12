@@ -1,8 +1,9 @@
-package com.tec.datos1;
+package com.tec.datos1.Jugabilidad;
 
 import com.tec.datos1.Enemigos.EnemigoJefe;
 import com.tec.datos1.Enemigos.EnemigoNormal;
 import com.tec.datos1.Enemigos.Enemigos;
+import com.tec.datos1.Enemigos.JuegoObjeto;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 

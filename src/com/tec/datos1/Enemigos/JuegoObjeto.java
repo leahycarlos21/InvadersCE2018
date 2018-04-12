@@ -1,4 +1,4 @@
-package com.tec.datos1;
+package com.tec.datos1.Enemigos;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;

@@ -1,17 +1,14 @@
-package com.tec.datos1;
+package com.tec.datos1.Jugabilidad;
 
-import com.tec.datos1.ClasesHordas.*;
-import com.tec.datos1.ClasesHordas.ADT.Nodo;
-import com.tec.datos1.ClasesHordas.ADT.NodoDoble;
+import com.tec.datos1.ClasesInvasores.*;
+import com.tec.datos1.ClasesInvasores.ADT.Nodo;
+import com.tec.datos1.Enemigos.JuegoObjeto;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -19,9 +16,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
-
-import java.util.Optional;
-import java.util.Random;
 
 public class InvadersApp extends Application {
 
@@ -34,8 +28,7 @@ public class InvadersApp extends Application {
     boolean cambio2 = false;//Cambio al llegar al extremo izquiedo
     boolean estadoJuego = true;
     boolean reset = false;
-    Text text2 ;
-
+    Text text2;
 
     private int avanzaNivel = 1;
 
@@ -72,9 +65,7 @@ public class InvadersApp extends Application {
         balas[7] = new Bala();
         balas[8] = new Bala();
         balas[9] = new Bala();
-        final Group rootGroup = new Group();
-        //String datosJugador=datosJugador = "Nivel: "+this.jugador.getEstadisticas().getNivelAlcanzado()+"Puntaje: "+this.jugador.getEstadisticas().getPuntaje();
-        //final Text text1 = new Text(25, 25, datosJugador);
+
         text1.setFill(Color.CHOCOLATE);
         text1.setFont(Font.font(java.awt.Font.SERIF, 25));
         ventana.getChildren().add(text1);
@@ -90,8 +81,6 @@ public class InvadersApp extends Application {
             }
         };
         timer.start();
-
-
         return ventana;
     }
 
@@ -134,7 +123,6 @@ public class InvadersApp extends Application {
             while (auxNodo != null) {
                 ventana.getChildren().add(auxNodo.getDato().getEnemigoObjeto().getVista());
                 auxNodo = auxNodo.getSiguiente();
-                //ventana.getChildren().add(objecto.getVista());
             }
         }
     }
@@ -165,7 +153,7 @@ public class InvadersApp extends Application {
             cambio1 = true;//cambio al llegar al extremo derecho
             cambio2 = false;//Cambio al llegar al extremo izquiedo
             estadoJuego = true;
-            reset=false;
+            reset = false;
 
             avanzaNivel = 1;
 
@@ -222,7 +210,7 @@ public class InvadersApp extends Application {
             ventana.getChildren().add(text2);
             estadoJuego = false;
 
-        } else if (horda.cantidadLista() == 0&& estadoJuego==true) {
+        } else if (horda.cantidadLista() == 0 && estadoJuego == true) {
             posHorda += 1;
             if (posHorda == 3) {
                 avanzaNivel++;
@@ -260,14 +248,11 @@ public class InvadersApp extends Application {
 
                     System.out.println("Vida es " + horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida());
                     horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().restarVida();
-                    horda.getListaEnemigos().obtenerDato(pos).setVida(horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida());///VER esto-------------------------
+                    horda.getListaEnemigos().obtenerDato(pos).setVida(horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida());
 
                     if (horda.getListaEnemigos().obtenerDato(pos).getTipo() == 1 && horda instanceof ClaseC
                             && horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida() == 0) {
-
                         ((ClaseC) horda).intercambiar(pos);
-                        //Hacer que cambien los maes
-
 
                     }
                     if (horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida() == 0 || horda.getListaEnemigos().cantidad() == 1) {
@@ -296,8 +281,6 @@ public class InvadersApp extends Application {
             balas[i].update();
         }
         /** Elimina al enemigo */
-        //System.out.println("PosicionEliminada-------------" + posEnemigoEliminar);
-
 
         if (posEnemigoEliminar == 111)
             horda.eliminarPosicion(0);
@@ -338,31 +321,20 @@ public class InvadersApp extends Application {
 
 
         while (num <= horda.cantidadLista() && horda instanceof ClaseBasic || num < horda.cantidadLista() && horda instanceof ClaseC) {
-            if (horda.getListaEnemigos().obtenerDato(posfinal).getEnemigoObjeto().getPosicion()[1] > 430 && estadoJuego==true) {
-                System.out.println("Your dead");
-               /* if (horda instanceof ClaseBasic) {//Solo clases que tienen listas dobles
-                    num = 1;
-                }
-                if (horda instanceof ClaseC) {//Solo clases que tienen listas circulares
-                    num = 0;
+            if (horda.getListaEnemigos().obtenerDato(posfinal).getEnemigoObjeto().getPosicion()[1] > 430 && estadoJuego == true) {
 
-            /*    }*/
                 String GameOver = "\n Perdiste: Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
                 text2 = new Text(200, 200, GameOver);
                 text2.setFill(Color.RED);
                 text2.setFont(Font.font(java.awt.Font.SERIF, 25));
                 ventana.getChildren().add(text2);
-                int largoInterfaz= horda.getListaEnemigos().cantidad();
-                for(int i=1;i<=largoInterfaz;i++){
-                    //ventana.getChildren().removeAll(horda.getListaEnemigos().obtenerDato(i).getEnemigoObjeto().getVista());
+                int largoInterfaz = horda.getListaEnemigos().cantidad();
+                for (int i = 1; i <= largoInterfaz; i++) {
                     ventana.getChildren().removeAll(horda.getListaEnemigos().getRaiz().getDato().getEnemigoObjeto().getVista());
                     horda.eliminarPosicion(1);
                 }
-
-                System.out.print("ca"+horda.getListaEnemigos().cantidad());
-
+                System.out.print("ca" + horda.getListaEnemigos().cantidad());
                 velocidad = 0;
-                //resetVelocidad();
                 estadoJuego = false;
                 break;
             }
@@ -388,18 +360,13 @@ public class InvadersApp extends Application {
                 text2.setFill(Color.CHOCOLATE);
                 text2.setFont(Font.font(java.awt.Font.SERIF, 25));
                 ventana.getChildren().add(text2);
-               // Thread.sleep(500);
                 ventana.getChildren().remove(text2);
-
-
             }
 
             horda.getListaEnemigos().obtenerDato(num).getEnemigoObjeto().setVelocidad(new Point2D(velocidad, 0));
             horda.getListaEnemigos().obtenerDato(num).getEnemigoObjeto().update();
             num++;
-
         }
-
     }
 
     /**
@@ -416,14 +383,14 @@ public class InvadersApp extends Application {
 
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         stage.setTitle("InvadersCE Carlos Leahy 2018");
         if (estadoJuego == true)
             stage.setScene(new Scene(createContent()));
 
 
-        stage.getScene().setOnKeyPressed(e->{
+        stage.getScene().setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.LEFT) {
                 if (jugador.getJugadorObjeto().getVista().getBoundsInParent().getMaxX() > 40.0)
                     jugador.getJugadorObjeto().movIzq();
@@ -443,8 +410,7 @@ public class InvadersApp extends Application {
                 reset = true;
 
 
-            }
-           else if (e.getCode() == KeyCode.SPACE) {
+            } else if (e.getCode() == KeyCode.SPACE) {
                 JuegoObjeto bala = new Bala();
                 /**Reutilzia los espacios del array balas, para
                  ** imprimirlas en la pantalla*/

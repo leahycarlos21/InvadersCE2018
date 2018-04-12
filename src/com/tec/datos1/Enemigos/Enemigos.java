@@ -1,9 +1,5 @@
 package com.tec.datos1.Enemigos;
 
-import com.tec.datos1.JuegoObjeto;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
 public abstract class Enemigos {
     private int tipo;/**Si el valor es 0 es de tipo normal, y si es 1 es de tipo jefe*/
     private int vida;
