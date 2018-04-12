@@ -7,7 +7,6 @@ public class NodoCircular implements Nodo {
     private NodoCircular siguiente;
 
     public NodoCircular(Enemigos dato) {
-        //super();
         this.dato = dato;
         siguiente = null;
     }

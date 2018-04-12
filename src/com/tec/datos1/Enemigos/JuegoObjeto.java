@@ -16,9 +16,6 @@ public class JuegoObjeto {
         this.vista = vista;
     }
 
-    public JuegoObjeto() {
-        this.vista = new Circle(5, 5, 5, Color.BLACK);
-    }
 
 
     /**
@@ -63,10 +60,6 @@ public class JuegoObjeto {
 
     public Node getVista() {
         return vista;
-    }
-
-    public void setVista(Node vista) {
-        this.vista = vista;
     }
 
     public Point2D getVelocidad() {
@@ -126,15 +119,6 @@ public class JuegoObjeto {
         return getVista().getBoundsInParent().intersects(objeto2.getVista().getBoundsInParent());
     }
 
-    public void cambioColor(){
-
-        double var1=this.getVista().getTranslateX();
-        double var2=this.getVista().getTranslateY();
-
-        this.vista=new Rectangle(40, 40,Color.BLACK);
-        this.vista.setTranslateX(var1);
-        this.vista.setTranslateY(var2);
-    }
 
     public void restarVida(){
         this.vida=vida-1;

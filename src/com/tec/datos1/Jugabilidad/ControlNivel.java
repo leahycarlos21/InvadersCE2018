@@ -48,23 +48,18 @@ public class ControlNivel {
                 break;
         }
     }
-    public void insertarHorda(){
 
+    public int getNivel() {
+        return nivel;
     }
 
     public Clase[] getHordaEnemigos() {
         return HordaEnemigos;
     }
 
-    public void setHordaEnemigos(Clase[] hordaEnemigos) {
-        HordaEnemigos = hordaEnemigos;
-    }
 
     public String[] getNameHorda() {
         return nameHorda;
     }
 
-    public void setNameHorda(String[] nameHorda) {
-        this.nameHorda = nameHorda;
-    }
 }

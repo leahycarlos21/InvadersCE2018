@@ -22,5 +22,4 @@ public interface Clase {
 
     int cantidadLista();
 
-    int tipoLista();
 }

@@ -1,4 +1,4 @@
-package com.tec.datos1.Jugabilidad;
+package com.tec.datos1.launcher;
 
 import com.tec.datos1.Enemigos.JuegoObjeto;
 import com.tec.datos1.Jugabilidad.Estadisticas;

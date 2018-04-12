@@ -1,7 +1,7 @@
 package com.tec.datos1.ClasesInvasores;
 
 import com.tec.datos1.Enemigos.Enemigos;
-import com.tec.datos1.Jugabilidad.FactoryEnemigos;
+import com.tec.datos1.Enemigos.FactoryEnemigos;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 

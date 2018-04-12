@@ -20,9 +20,6 @@ public abstract class Enemigos {
         this.EnemigoObjeto.setPosicion(x, y);
     }
 
-    public void actualizarVida(int vida) {
-        this.vida = vida;
-    }
 
 
     public int getVida() {
@@ -35,10 +32,6 @@ public abstract class Enemigos {
 
     public JuegoObjeto getEnemigoObjeto() {
         return EnemigoObjeto;
-    }
-
-    public void setEnemigoObjeto(JuegoObjeto enemigoObjeto) {
-        EnemigoObjeto = enemigoObjeto;
     }
 
     public int getTipo() {

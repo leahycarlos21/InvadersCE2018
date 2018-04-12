@@ -3,7 +3,7 @@ package com.tec.datos1.ClasesInvasores;
 import com.tec.datos1.ClasesInvasores.ADT.Lista;
 import com.tec.datos1.ClasesInvasores.ADT.ListaCircular;
 import com.tec.datos1.Enemigos.Enemigos;
-import com.tec.datos1.Jugabilidad.FactoryEnemigos;
+import com.tec.datos1.Enemigos.FactoryEnemigos;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -31,9 +31,7 @@ public class ClaseC implements Clase {
             generador = FactoryEnemigos.getEnemigo(nivelVida, " ", Color.SEAGREEN);
         }
         this.listaEnemigos.agregarInicio(generador);
-        //this.listaEnemigos.insertar(1,generador);
-        // System.out.println(generador.getVida());
-        //listaEnemigos.listar();
+
     }
 
     /**
@@ -57,7 +55,6 @@ public class ClaseC implements Clase {
 
     @Override
     public void eliminarPosicion(int posicion) {
-        System.out.println("tipo es posicion-----" + this.listaEnemigos.obtenerDato(posicion).getTipo());
         this.listaEnemigos.eliminar(posicion);
     }
 
@@ -83,7 +80,6 @@ public class ClaseC implements Clase {
         this.getListaEnemigos().obtenerDato(posicion).getEnemigoObjeto().update();
         this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().setPosicion(coordenas2[0], coordenas2[1]);
         this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().update();
-        System.out.println("--VIDA DEL ROJO --"+this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().getVida());
 
     }
 
@@ -128,11 +124,6 @@ public class ClaseC implements Clase {
     public int cantidadLista() {
         return this.listaEnemigos.cantidad();
 
-    }
-
-    @Override
-    public int tipoLista() {
-        return this.listaEnemigos.getId();
     }
 
     @Override

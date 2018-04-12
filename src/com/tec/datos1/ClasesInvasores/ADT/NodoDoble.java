@@ -25,21 +25,10 @@ public class NodoDoble implements Nodo {
         this.dato = dato;
     }
 
-    public NodoDoble getAnterior() {
-        return this.anterior;
-    }
-
-    public void setAnterior(NodoDoble anterior) {
-        this.anterior = anterior;
-    }
 
     @Override
     public NodoDoble getSiguiente() {
         return this.siguiente;
-    }
-
-    public void setSiguiente(NodoDoble siguiente) {
-        this.anterior = siguiente;
     }
 
 }

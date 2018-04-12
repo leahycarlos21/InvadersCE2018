@@ -19,7 +19,6 @@ public class ListaDoble implements Lista {
             auxNodo = auxNodo.siguiente;
             cant++;
         }
-        // System.out.println("Cantidad: "+cant);
         return cant;
     }
     @Override
@@ -118,10 +117,6 @@ public class ListaDoble implements Lista {
         return raiz;
     }
 
-    @Override
-    public Nodo getUltimo() {
-        return null;
-    }
 
     @Override
     public void imprimir() {
@@ -134,14 +129,6 @@ public class ListaDoble implements Lista {
         }
     }
 
-    /**
-     * utilizado para ver si es Circular o Doble en asuntos de interfaz
-     * @return
-     */
-    @Override
-    public int getId() {
-        return id;
-    }
     @Override
     public void setId(int id) {
         this.id = id;

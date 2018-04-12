@@ -1,4 +1,4 @@
-package com.tec.datos1.Jugabilidad;
+package com.tec.datos1.Enemigos;
 
 import com.tec.datos1.Enemigos.EnemigoJefe;
 import com.tec.datos1.Enemigos.EnemigoNormal;

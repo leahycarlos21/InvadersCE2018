@@ -4,14 +4,12 @@ import com.tec.datos1.ClasesInvasores.ADT.Lista;
 import com.tec.datos1.ClasesInvasores.ADT.ListaCircular;
 import com.tec.datos1.ClasesInvasores.ADT.ListaDoble;
 import com.tec.datos1.Enemigos.Enemigos;
-import com.tec.datos1.Jugabilidad.FactoryEnemigos;
+import com.tec.datos1.Enemigos.FactoryEnemigos;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class ClaseBasic implements Clase {
-    private ListaDoble listaEnemigos = new ListaDoble();
-    public ListaCircular listaEnemigosC = new ListaCircular();
-
+    private Lista listaEnemigos = new ListaDoble();
 
     public ClaseBasic() {
         for (int i = 1; i <= 8; i++) {
@@ -96,8 +94,4 @@ public class ClaseBasic implements Clase {
         return this.listaEnemigos.cantidad();
     }
 
-    @Override
-    public int tipoLista() {
-        return this.listaEnemigos.getId();
-    }
 }

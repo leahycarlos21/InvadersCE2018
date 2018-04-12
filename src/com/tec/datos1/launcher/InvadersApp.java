@@ -1,8 +1,9 @@
-package com.tec.datos1.Jugabilidad;
+package com.tec.datos1.launcher;
 
 import com.tec.datos1.ClasesInvasores.*;
 import com.tec.datos1.ClasesInvasores.ADT.Nodo;
 import com.tec.datos1.Enemigos.JuegoObjeto;
+import com.tec.datos1.Jugabilidad.ControlNivel;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
@@ -38,7 +39,7 @@ public class InvadersApp extends Application {
     private ControlNivel nivelHorda = new ControlNivel(avanzaNivel);
     //posHorda ubica el array de enemigos de nivelHorda
     private int posHorda = 0;
-    Clase horda;//= nivelHorda.getHordaEnemigos()[posHorda];
+    Clase horda;
 
     String nameHorda = nivelHorda.getNameHorda()[posHorda];
     String nameHordaActual = nivelHorda.getNameHorda()[posHorda];
@@ -154,13 +155,14 @@ public class InvadersApp extends Application {
             cambio2 = false;//Cambio al llegar al extremo izquiedo
             estadoJuego = true;
             reset = false;
+            jugador.getEstadisticas().setPuntaje(0);
 
             avanzaNivel = 1;
 
             /**
              * METER ESTO EN EL UPDATE PARA REINICIAR, SI ESTADOJUEGO==FALSE HAGA ESTO
              */
-            nivelHorda = new ControlNivel(avanzaNivel);
+            nivelHorda = new ControlNivel(1);
             //posHorda ubica el array de enemigos de nivelHorda
             posHorda = 0;
             nameHorda = nivelHorda.getNameHorda()[posHorda];
@@ -190,6 +192,7 @@ public class InvadersApp extends Application {
         datosJugador = "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje() +
                 " Actual:" + nameHordaActual +
                 " Siguiente:" + nameHorda;
+        ventana.getChildren().remove(text1);
         text1 = new Text(10, 25, datosJugador);
         text1.setFill(Color.CHOCOLATE);
         text1.setFont(Font.font(java.awt.Font.SERIF, 25));
@@ -200,7 +203,7 @@ public class InvadersApp extends Application {
             horda = nivelHorda.getHordaEnemigos()[posHorda];
             horda.setCoordenas(5, 100);
             addJuegoObjeto(horda);
-            this.jugador.getEstadisticas().setNivelAlcanzado(nivelHorda.nivel);
+            this.jugador.getEstadisticas().setNivelAlcanzado(nivelHorda.getNivel());
 
         } else if (posHorda == 2 && horda.cantidadLista() == 0 && avanzaNivel == 3) {
             String GameOver = "\n GG Prrooo  Ganaste:" + "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
@@ -407,6 +410,7 @@ public class InvadersApp extends Application {
 
             if (estadoJuego == false && e.getCode() == KeyCode.ENTER) {
                 ventana.getChildren().remove(text2);
+                ventana.getChildren().remove(text1);
                 reset = true;
 
 

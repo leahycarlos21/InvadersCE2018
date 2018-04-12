@@ -131,12 +131,6 @@ public class ListaCircular implements Lista {
         }
     }
 
-
-    @Override
-    public int getId() {
-        return this.id;
-    }
-
     @Override
     public void setId(int id) {
         this.id = id;
@@ -145,11 +139,6 @@ public class ListaCircular implements Lista {
     @Override
     public NodoCircular getRaiz() {
         return this.inicio;
-    }
-
-    @Override
-    public NodoCircular getUltimo() {
-        return ultimo;
     }
 
     @Override

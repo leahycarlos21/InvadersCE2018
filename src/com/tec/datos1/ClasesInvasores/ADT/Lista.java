@@ -9,13 +9,9 @@ public interface Lista {
     void cambiarDato(int pos, double x, double y);
     Enemigos obtenerDato(int pos);
     void imprimir();
-    int getId();
     void setId(int id);
     void agregarInicio(Enemigos dato);
     Nodo getRaiz();
-    Nodo getUltimo();
-
-    //NodoCircular getRaiz();
     void intercambiar(int pos1,int pos2);
 
 }
