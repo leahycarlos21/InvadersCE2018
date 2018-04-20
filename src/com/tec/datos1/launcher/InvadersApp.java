@@ -188,17 +188,17 @@ public class InvadersApp extends Application {
 
             nameHorda = "FINAL";
         }
+        if(estadoJuego!=false) {
+            datosJugador = "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje() +
+                    " Actual:" + nameHordaActual +
+                    " Siguiente:" + nameHorda;
+            serveris.setDatosJuego(datosJugador);
 
-        datosJugador = "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje() +
-                " Actual:" + nameHordaActual +
-                " Siguiente:" + nameHorda;
-        serveris.setDatosJuego(datosJugador);
-
-        // ventana.getChildren().remove(text1);
-        text1 = new Text(10, 25, datosJugador);
-        text1.setFill(Color.CHOCOLATE);
-        text1.setFont(Font.font(java.awt.Font.SERIF, 25));
-        ventana.getChildren().add(text1);
+            text1 = new Text(10, 25, datosJugador);
+            text1.setFill(Color.CHOCOLATE);
+            text1.setFont(Font.font(java.awt.Font.SERIF, 25));
+            ventana.getChildren().add(text1);
+        }
         /**Fin de texto de interfaz*/
 
         if (this.jugador.getEstadisticas().getNivelAlcanzado() == 0) {
@@ -208,13 +208,14 @@ public class InvadersApp extends Application {
             this.jugador.getEstadisticas().setNivelAlcanzado(nivelHorda.getNivel());
 
         }  if (posHorda == 2 && horda.cantidadLista() == 0 && avanzaNivel == 3) {
-            String GG = "\n GG Prrooo  Ganaste:" + "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
+            String GG = "\n GG EZ PZ LEMON SQUEEZY: " + "\nNivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
+            datosJugador=GG;
+            serveris.setDatosJuego(datosJugador);
             text2 = new Text(100, 200, GG);
             text2.setFill(Color.CHOCOLATE);
             text2.setFont(Font.font(java.awt.Font.SERIF, 25));
 
             ventana.getChildren().setAll(text2);
-           // Thread.sleep(5000);
 
             estadoJuego = false;
 
@@ -335,7 +336,9 @@ public class InvadersApp extends Application {
         while (num <= horda.cantidadLista() && horda instanceof ClaseBasic || num < horda.cantidadLista() && horda instanceof ClaseC) {
             if (horda.getListaEnemigos().obtenerDato(posfinal).getEnemigoObjeto().getPosicion()[1] > 430 && estadoJuego == true) {
 
-                String GameOver = "\n Perdiste: Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
+                String GameOver = "\n Sorry :("+"\nNivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
+                datosJugador=GameOver;
+                serveris.setDatosJuego(datosJugador);
                 text2 = new Text(200, 200, GameOver);
                 text2.setFill(Color.RED);
                 text2.setFont(Font.font(java.awt.Font.SERIF, 25));
