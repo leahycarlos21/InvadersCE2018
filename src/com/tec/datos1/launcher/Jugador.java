@@ -6,15 +6,26 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Jugador {
+    private static Jugador instance;
+
     /**
      * estadisticas, va a concentrar los datos del jugador (nivel y puntaje)
      */
     private Estadisticas estadisticas;
     private JuegoObjeto jugadorObjeto;
-    public Jugador(){
-        this.estadisticas= new Estadisticas();
-        this.jugadorObjeto = new JuegoObjeto(new Rectangle(40, 20, Color.GRAY));
 
+    private Jugador() {
+
+    }
+
+    public static Jugador getInstance() {
+        if (instance == null) {
+            instance = new Jugador();
+            instance.setEstadisticas(new Estadisticas());
+            instance.setJugadorObjeto(new JuegoObjeto(new Rectangle(40, 20, Color.GRAY)));
+
+        }
+        return instance;
     }
 
     public Estadisticas getEstadisticas() {

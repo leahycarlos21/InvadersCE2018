@@ -123,7 +123,7 @@ public class ListaDoble implements Lista {
         NodoDoble auxNodo = raiz;
         int num = 1;
         while (auxNodo != null) {
-            System.out.println(num + " -> " + auxNodo.getDato().getVida());
+         //   System.out.println(num + " -> " + auxNodo.getDato().getVida());
             num++;
             auxNodo = auxNodo.siguiente;
         }

@@ -124,9 +124,6 @@ public class JuegoObjeto {
         this.vida=vida-1;
         if(this.vida ==0)
             this.vivo=false;
-
-        System.out.print("restarVida da "+this.vida);
-
     }
 
 

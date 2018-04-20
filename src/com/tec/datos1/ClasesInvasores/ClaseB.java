@@ -9,6 +9,10 @@ public class ClaseB extends ClaseA {
         super();
     }
 
+    /**
+     * Se encarga cambiar la posición aleatoriamente del jefe por la de algún enemigo normal
+     * @param ventana
+     */
     @Override
     public void actualizarDatos(Pane ventana) {
         if (getListaEnemigos().cantidad() > 1) {
@@ -35,6 +39,10 @@ public class ClaseB extends ClaseA {
         super.actualizarDatos(ventana);
     }
 
+    /**
+     * Funcion auxiliar para el metodo actualizarDato, brinda la posicion de jefe para realizar el cambio.
+     * @return
+     */
     private int buscarJefe() {
         int pos = 1;
         for (int i = 1; i <= this.getListaEnemigos().cantidad(); i++) {

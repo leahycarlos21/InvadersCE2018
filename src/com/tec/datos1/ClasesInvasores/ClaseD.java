@@ -56,7 +56,5 @@ public class ClaseD extends ClaseC {
         this.getListaEnemigos().obtenerDato(posicion).getEnemigoObjeto().update();
         this.getListaEnemigos().obtenerDato(posicion2).getEnemigoObjeto().setPosicion(coordenas2[0], coordenas2[1]);
         this.getListaEnemigos().obtenerDato(posicion2).getEnemigoObjeto().update();
-        System.out.println("---Vida de pos1--" + this.getListaEnemigos().obtenerDato(posicion).getEnemigoObjeto().getVida());
-
     }
 }

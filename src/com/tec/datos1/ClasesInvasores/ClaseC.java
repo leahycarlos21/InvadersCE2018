@@ -18,10 +18,8 @@ public class ClaseC implements Clase {
         for (int i = 1; i <= 7; i++) {
             agregarEnemigo(i, 1);
 
-
         }
         insertarJefe();
-        System.out.println("----------------------" + this.listaEnemigos.cantidad());
     }
 
     @Override
@@ -39,16 +37,12 @@ public class ClaseC implements Clase {
      * a alguna posicion de la lista
      */
     public void insertarJefe() {
-        System.out.println("Laarrrgoooooo" + listaEnemigos.cantidad());
 
         Random aleatorio = new Random();
         //genera un numero entre 1 y 5 y lo guarda en la variable aleatorio
         int numeroAleatorio = 0 + aleatorio.nextInt(listaEnemigos.cantidad() - 1);
         this.getListaEnemigos().eliminar(0);
         Enemigos generador = FactoryEnemigos.getEnemigo(1, "boss", Color.RED);
-        System.out.println("generador vida" + generador.getVida());
-        // jefeVida = generador.getVida();
-
         this.getListaEnemigos().insertar(numeroAleatorio, generador);
 
     }
@@ -67,12 +61,12 @@ public class ClaseC implements Clase {
             Random aleatorio = new Random();
             posicionCambio = 0 + aleatorio.nextInt(this.getListaEnemigos().cantidad() );
         }
-        //int posicionCambio = 0;
+        //Cambia la vida del jefe por la que está almacenada por jefeVida, y le quita la vida al enemigo que fue sustituido.
         this.listaEnemigos.obtenerDato(posicion).getEnemigoObjeto().setVida(jefeVida);
-     //   this.listaEnemigos.obtenerDato(posicion).setVida(5);
         this.listaEnemigos.obtenerDato(posicionCambio).getEnemigoObjeto().setVida(0);
         this.listaEnemigos.intercambiar(posicion, posicionCambio);
 
+        //Almacena la posición de los dos objetos, y luego las establece
         double[] coordenas = this.getListaEnemigos().obtenerDato(posicionCambio).getEnemigoObjeto().getPosicion();
         double[] coordenas2 = this.getListaEnemigos().obtenerDato(posicion).getEnemigoObjeto().getPosicion();
         this.getListaEnemigos().obtenerDato(posicion).getEnemigoObjeto().setPosicion(coordenas[0], coordenas[1]);
@@ -109,8 +103,6 @@ public class ClaseC implements Clase {
             this.listaEnemigos.cambiarDato(num, x, y);
             x += 50;
             num++;
-            System.out.println("EL valor de X es " + x);
-
         }
     }
 

@@ -4,13 +4,15 @@ import com.tec.datos1.ClasesInvasores.*;
 import com.tec.datos1.ClasesInvasores.ADT.Nodo;
 import com.tec.datos1.Enemigos.JuegoObjeto;
 import com.tec.datos1.Jugabilidad.ControlNivel;
+import com.tec.datos1.Jugabilidad.TCPServer;
+
+import javafx.scene.input.KeyCode;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -18,19 +20,24 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+
 public class InvadersApp extends Application {
 
     private Pane ventana;
-    private Jugador jugador = new Jugador();
-    private JuegoObjeto[] balas = new JuegoObjeto[10];
+    private Jugador jugador = Jugador.getInstance();
+    private JuegoObjeto[] balas = new JuegoObjeto[20];
     private int posicionBala = 0;
-    double velocidad = 10;
+    double velocidad = 1;
     boolean cambio1 = true;//cambio al llegar al extremo derecho
     boolean cambio2 = false;//Cambio al llegar al extremo izquiedo
     boolean estadoJuego = true;
     boolean reset = false;
-    Text text2;
-
+    String posicionApp;
+    boolean disparoApp = false;
+    Text text2 = new Text();
+    public TCPServer serveris = new TCPServer();
     private int avanzaNivel = 1;
 
     /**
@@ -39,7 +46,7 @@ public class InvadersApp extends Application {
     private ControlNivel nivelHorda = new ControlNivel(avanzaNivel);
     //posHorda ubica el array de enemigos de nivelHorda
     private int posHorda = 0;
-    Clase horda;
+    private Clase horda;
 
     String nameHorda = nivelHorda.getNameHorda()[posHorda];
     String nameHordaActual = nivelHorda.getNameHorda()[posHorda];
@@ -48,24 +55,18 @@ public class InvadersApp extends Application {
 
 
     private Parent createContent() {
-        System.out.print(nameHorda);
-        /* Definiendo las dimensiones de la ventana principal */
+
+        /** Definiendo las dimensiones de la ventana principal */
         ventana = new Pane();
         ventana.setPrefSize(600, 600);
-        //jugador = new JuegoObjeto(new Rectangle(40, 20, Color.GRAY));
 
         addJuegoObjeto(jugador.getJugadorObjeto(), 300, 500);
-
-        balas[0] = new Bala();
-        balas[1] = new Bala();
-        balas[2] = new Bala();
-        balas[3] = new Bala();
-        balas[4] = new Bala();
-        balas[5] = new Bala();
-        balas[6] = new Bala();
-        balas[7] = new Bala();
-        balas[8] = new Bala();
-        balas[9] = new Bala();
+        /**
+         * Genera las balas que se van a utilizar, las posiciones, se reutilizan
+         */
+        for (int i = 0; i < balas.length; i++) {
+            balas[i] = new Bala();
+        }
 
         text1.setFill(Color.CHOCOLATE);
         text1.setFont(Font.font(java.awt.Font.SERIF, 25));
@@ -87,7 +88,7 @@ public class InvadersApp extends Application {
 
 
     /**
-     * @param bala añade una vale que sale desde la posicion del jugador
+     * @param bala añade una bala que sale desde la posicion del jugador
      * @param pos
      * @param x
      * @param y
@@ -143,37 +144,36 @@ public class InvadersApp extends Application {
      * @throws InterruptedException
      */
     private void onUpdate() throws InterruptedException {
+        /**
+         * Movimiento con app
+         */
+        if (serveris.isDisparo() == true) {
+            disparar();
+            serveris.setDisparo(false);
+            disparoApp = true;
+        }
+        if (serveris.getPosicion() == "Izquierda") {
+            if (jugador.getJugadorObjeto().getVista().getBoundsInParent().getMaxX() > 40.0)
+                jugador.getJugadorObjeto().movIzq();
+
+        }
+        if (serveris.getPosicion() == "Derecha") {
+            if (jugador.getJugadorObjeto().getVista().getBoundsInParent().getMaxX() < 600.0)
+                jugador.getJugadorObjeto().movDer();
+        }
+
+        posicionApp = serveris.getPosicion();
 
 
         if (reset == true && estadoJuego == false) {
-            ventana.getChildren().remove(text1);//Quita el texto definido en los atributos de esta clase
-            ventana.getChildren().remove(text2);//Quita el texto definido en los atributos de esta clase
-
-            //posHorda ubica el array de enemigos de nivelHorda
-            velocidad = 10;
-            cambio1 = true;//cambio al llegar al extremo derecho
-            cambio2 = false;//Cambio al llegar al extremo izquiedo
-            estadoJuego = true;
-            reset = false;
-            jugador.getEstadisticas().setPuntaje(0);
-
-            avanzaNivel = 1;
-
-            /**
-             * METER ESTO EN EL UPDATE PARA REINICIAR, SI ESTADOJUEGO==FALSE HAGA ESTO
-             */
-            nivelHorda = new ControlNivel(1);
-            //posHorda ubica el array de enemigos de nivelHorda
-            posHorda = 0;
-            nameHorda = nivelHorda.getNameHorda()[posHorda];
-            nameHordaActual = nivelHorda.getNameHorda()[posHorda];
-            datosJugador = "Nivel: " + 1 + "Puntaje: " + 0;
-            text1 = new Text(25, 25, datosJugador);
+            resetJuego();
+            ventana.getChildren().remove(text2);
 
 
         }
         /**Texto de interfaz*/
         ventana.getChildren().remove(text1);//Quita el texto definido en los atributos de esta clase
+
         if (posHorda != 3)
             nameHordaActual = nivelHorda.getNameHorda()[posHorda];
 
@@ -192,7 +192,9 @@ public class InvadersApp extends Application {
         datosJugador = "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje() +
                 " Actual:" + nameHordaActual +
                 " Siguiente:" + nameHorda;
-        ventana.getChildren().remove(text1);
+        serveris.setDatosJuego(datosJugador);
+
+        // ventana.getChildren().remove(text1);
         text1 = new Text(10, 25, datosJugador);
         text1.setFill(Color.CHOCOLATE);
         text1.setFont(Font.font(java.awt.Font.SERIF, 25));
@@ -205,15 +207,23 @@ public class InvadersApp extends Application {
             addJuegoObjeto(horda);
             this.jugador.getEstadisticas().setNivelAlcanzado(nivelHorda.getNivel());
 
-        } else if (posHorda == 2 && horda.cantidadLista() == 0 && avanzaNivel == 3) {
-            String GameOver = "\n GG Prrooo  Ganaste:" + "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
-            Text text2 = new Text(100, 200, GameOver);
+        }  if (posHorda == 2 && horda.cantidadLista() == 0 && avanzaNivel == 3) {
+            String GG = "\n GG Prrooo  Ganaste:" + "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
+            text2 = new Text(100, 200, GG);
             text2.setFill(Color.CHOCOLATE);
             text2.setFont(Font.font(java.awt.Font.SERIF, 25));
-            ventana.getChildren().add(text2);
+
+            ventana.getChildren().setAll(text2);
+           // Thread.sleep(5000);
+
             estadoJuego = false;
 
+
+
         } else if (horda.cantidadLista() == 0 && estadoJuego == true) {
+            if (velocidad < 0)// si va para la izquierda ocupo restarle velocidad porque va negativo
+                velocidad -= 0.2;
+            velocidad += 0.2;
             posHorda += 1;
             if (posHorda == 3) {
                 avanzaNivel++;
@@ -245,17 +255,16 @@ public class InvadersApp extends Application {
             for (int b = 1; b <= horda.cantidadLista(); b++) {
                 if (balas[i].colision(auxLista.getDato().getEnemigoObjeto())) {
                     balas[i].setMuerto();
-                    System.out.println("------PosEnemigo1----" + posEnemigoEliminar);
-                    System.out.println("Enemigo>>> " + horda.getListaEnemigos().obtenerDato(0).getVida());
 
-
-                    System.out.println("Vida es " + horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida());
                     horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().restarVida();
                     horda.getListaEnemigos().obtenerDato(pos).setVida(horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida());
 
                     if (horda.getListaEnemigos().obtenerDato(pos).getTipo() == 1 && horda instanceof ClaseC
                             && horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida() == 0) {
-                        ((ClaseC) horda).intercambiar(pos);
+                        if (horda.getListaEnemigos().cantidad() > 1) {
+                            ((ClaseC) horda).intercambiar(pos);
+                        }
+
 
                     }
                     if (horda.getListaEnemigos().obtenerDato(pos).getEnemigoObjeto().getVida() == 0 || horda.getListaEnemigos().cantidad() == 1) {
@@ -331,12 +340,22 @@ public class InvadersApp extends Application {
                 text2.setFill(Color.RED);
                 text2.setFont(Font.font(java.awt.Font.SERIF, 25));
                 ventana.getChildren().add(text2);
+                /**
+                 * Limpia los enemigos al perder
+                 */
                 int largoInterfaz = horda.getListaEnemigos().cantidad();
-                for (int i = 1; i <= largoInterfaz; i++) {
-                    ventana.getChildren().removeAll(horda.getListaEnemigos().getRaiz().getDato().getEnemigoObjeto().getVista());
-                    horda.eliminarPosicion(1);
+                if (horda instanceof ClaseBasic) {
+                    for (int i = 1; i <= largoInterfaz; i++) {
+                        ventana.getChildren().removeAll(horda.getListaEnemigos().getRaiz().getDato().getEnemigoObjeto().getVista());
+                        horda.eliminarPosicion(1);
+                    }
+                } else {
+                    for (int i = 0; i <= largoInterfaz; i++) {
+                        ventana.getChildren().removeAll(horda.getListaEnemigos().getRaiz().getDato().getEnemigoObjeto().getVista());
+                        horda.eliminarPosicion(0);
+                    }
                 }
-                System.out.print("ca" + horda.getListaEnemigos().cantidad());
+
                 velocidad = 0;
                 estadoJuego = false;
                 break;
@@ -357,14 +376,6 @@ public class InvadersApp extends Application {
 
             }
 
-            if (estadoJuego == false) {
-                String GameOver = "\n Perdiste:" + "Nivel: " + this.jugador.getEstadisticas().getNivelAlcanzado() + "- Puntaje: " + this.jugador.getEstadisticas().getPuntaje();
-                text2 = new Text(200, 200, GameOver);
-                text2.setFill(Color.CHOCOLATE);
-                text2.setFont(Font.font(java.awt.Font.SERIF, 25));
-                ventana.getChildren().add(text2);
-                ventana.getChildren().remove(text2);
-            }
 
             horda.getListaEnemigos().obtenerDato(num).getEnemigoObjeto().setVelocidad(new Point2D(velocidad, 0));
             horda.getListaEnemigos().obtenerDato(num).getEnemigoObjeto().update();
@@ -376,6 +387,7 @@ public class InvadersApp extends Application {
      * Hace que la velocidad sea cero, baje de fila de cada uno de los enemigos
      */
 
+
     public void resetVelocidad() {
         for (int ii = 1; ii <= horda.cantidadLista(); ii++) {
             horda.getListaEnemigos().obtenerDato(ii).getEnemigoObjeto().setVelocidad(new Point2D(0, 0));
@@ -384,10 +396,56 @@ public class InvadersApp extends Application {
         }
     }
 
+    public void disparar() {
+        JuegoObjeto bala = new Bala();
+        /**Reutilzia los espacios del array balas, para
+         ** imprimirlas en la pantalla*/
+        if (posicionBala >= balas.length) {
+            posicionBala = 0;
+        }
+        bala.setVelocidad(jugador.getJugadorObjeto().getVelocidad().normalize().add(0, -5));
+        addBala(bala, posicionBala, jugador.getJugadorObjeto().getVista().getTranslateX() + 15, jugador.getJugadorObjeto().getVista().getTranslateY());
+        posicionBala += 1;
+    }
+
+    public class myHilo extends Thread {
+        public void run() {
+            serveris.TCPServer();
+
+        }
+    }
+
+    public void resetJuego() {
+        ventana.getChildren().remove(text1);//Quita el texto definido en los atributos de esta clase
+        ventana.getChildren().remove(text2);//Quita el texto definido en los atributos de esta clase
+
+
+        //posHorda ubica el array de enemigos de nivelHorda
+        velocidad = 1;
+        cambio1 = true;//cambio al llegar al extremo derecho
+        cambio2 = false;//Cambio al llegar al extremo izquiedo
+        estadoJuego = true;
+        reset = false;
+        jugador.getEstadisticas().setPuntaje(0);
+
+        avanzaNivel = 1;
+
+
+        nivelHorda = new ControlNivel(1);
+        posHorda = 0;
+        nameHorda = nivelHorda.getNameHorda()[posHorda];
+        nameHordaActual = nivelHorda.getNameHorda()[posHorda];
+        datosJugador = "Nivel: " + 1 + "Puntaje: " + 0;
+        text1 = new Text(25, 25, datosJugador);
+        this.jugador.getEstadisticas().setPuntaje(0);
+        this.jugador.getEstadisticas().setNivelAlcanzado(0);
+    }
 
     @Override
     public void start(Stage stage) {
 
+        myHilo hilo = new myHilo();
+        hilo.start();
         stage.setTitle("InvadersCE Carlos Leahy 2018");
         if (estadoJuego == true)
             stage.setScene(new Scene(createContent()));
@@ -401,33 +459,30 @@ public class InvadersApp extends Application {
             } else if (e.getCode() == KeyCode.RIGHT) {
                 if (jugador.getJugadorObjeto().getVista().getBoundsInParent().getMaxX() < 600.0)
                     jugador.getJugadorObjeto().movDer();
-
-
             }
+
         });
+
 
         stage.getScene().setOnKeyReleased(e -> {
 
+
             if (estadoJuego == false && e.getCode() == KeyCode.ENTER) {
                 ventana.getChildren().remove(text2);
-                ventana.getChildren().remove(text1);
                 reset = true;
 
 
             } else if (e.getCode() == KeyCode.SPACE) {
-                JuegoObjeto bala = new Bala();
-                /**Reutilzia los espacios del array balas, para
-                 ** imprimirlas en la pantalla*/
-                if (posicionBala >= balas.length) {
-                    posicionBala = 0;
-                }
-                bala.setVelocidad(jugador.getJugadorObjeto().getVelocidad().normalize().add(0, -5));
-                addBala(bala, posicionBala, jugador.getJugadorObjeto().getVista().getTranslateX() + 15, jugador.getJugadorObjeto().getVista().getTranslateY());
-                posicionBala += 1;
+                disparar();
+
+
+            } else if (e.getCode() == KeyCode.S) {
+                disparar();
 
 
             }
         });
         stage.show();
+
     }
 }

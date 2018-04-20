@@ -124,7 +124,7 @@ public class ListaCircular implements Lista {
             NodoCircular auxNodo = inicio;
             int num = 1;
             while (auxNodo != null) {
-                System.out.println(num + "->" + auxNodo.getDato().getTipo());
+             //   System.out.println(num + "->" + auxNodo.getDato().getTipo());
                 num++;
                 auxNodo = auxNodo.getSiguiente();
             }

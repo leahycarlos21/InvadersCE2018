@@ -30,7 +30,6 @@ public class ClaseBasic implements Clase {
             generador = FactoryEnemigos.getEnemigo(nivelVida, " ", Color.WHEAT);
         }
         this.listaEnemigos.insertar(posicion, generador);
-        System.out.println(generador.getVida());
 
     }
 
@@ -51,7 +50,6 @@ public class ClaseBasic implements Clase {
 
             int num = posicion;
             while (num >= 1) {
-                //listaEnemigos.cambiarDato(num, coordenada[0], coordenada[1]);
                 listaEnemigos.obtenerDato(num).getEnemigoObjeto().setPosicion(coordenada[0], coordenada[1]);
                 listaEnemigos.obtenerDato(num).getEnemigoObjeto().update();
                 coordenada[0] -= 50;
@@ -79,7 +77,6 @@ public class ClaseBasic implements Clase {
             listaEnemigos.cambiarDato(num, x, y);
             x += 50;
             num++;
-            System.out.println("EL valor de X es " + x);
         }
     }
 

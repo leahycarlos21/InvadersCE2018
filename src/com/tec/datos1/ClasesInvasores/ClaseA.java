@@ -54,8 +54,6 @@ public class ClaseA extends ClaseBasic {
         for (int i = 1; i <= this.getListaEnemigos().cantidad(); i++) {
             ventana.getChildren().removeAll(this.getListaEnemigos().obtenerDato(i).getEnemigoObjeto().getVista());
             this.getListaEnemigos().eliminar(i);
-
-
         }
     }
 }
