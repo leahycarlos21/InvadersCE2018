@@ -8,6 +8,8 @@ import javafx.scene.layout.Pane;
  * que tienen diferente tipo de lista (doble o circular)
  */
 public interface Clase {
+    int getCantidadEliminada();
+    void setCantidadEliminada(int cantidadElimnada);
     void agregarEnemigo(int posicion, int nivelVida);
 
     void eliminarPosicion(int posicion);

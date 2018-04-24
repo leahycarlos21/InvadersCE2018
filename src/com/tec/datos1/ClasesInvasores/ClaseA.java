@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import java.util.Random;
 
 public class ClaseA extends ClaseBasic {
+    int cantidadEliminada=0;
     public ClaseA() {
         super();
         insertJefe();
@@ -29,6 +30,7 @@ public class ClaseA extends ClaseBasic {
 
     }
 
+
     /**
      * Revisa si el jefe sigue vivo, si retorna false, elimina todos los demás enemigos
      */
@@ -41,6 +43,9 @@ public class ClaseA extends ClaseBasic {
             }
         }
         if (jefeVivo == false) {
+            if(cantidadEliminada==0)
+                cantidadEliminada=this.cantidadLista()+3;
+
             eliminarNormales(ventana);
         }
     }
@@ -55,6 +60,13 @@ public class ClaseA extends ClaseBasic {
             ventana.getChildren().removeAll(this.getListaEnemigos().obtenerDato(i).getEnemigoObjeto().getVista());
             this.getListaEnemigos().eliminar(i);
         }
+    }
+
+    public int getCantidadEliminada() {
+        return cantidadEliminada;
+    }
+    public void setCantidadEliminada(int cantidad){
+        this.cantidadEliminada=cantidad;
     }
 }
 

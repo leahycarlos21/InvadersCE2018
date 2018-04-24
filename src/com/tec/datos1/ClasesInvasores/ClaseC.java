@@ -12,6 +12,7 @@ import java.util.Random;
 public class ClaseC implements Clase {
     public Lista listaEnemigos = new ListaCircular();
     protected int jefeVida = 3;
+    private int cantidadEliminada=0;
 
     public ClaseC() {
         this.listaEnemigos.setId(2);
@@ -21,6 +22,8 @@ public class ClaseC implements Clase {
         }
         insertarJefe();
     }
+
+
 
     @Override
     public void agregarEnemigo(int posicion, int nivelVida) {
@@ -120,7 +123,15 @@ public class ClaseC implements Clase {
 
     @Override
     public Lista getListaEnemigos() {
-
         return this.listaEnemigos;
+    }
+    @Override
+    public int getCantidadEliminada() {
+        return cantidadEliminada;
+    }
+
+    @Override
+    public void setCantidadEliminada(int cantidadEliminada) {
+        this.cantidadEliminada=cantidadEliminada;
     }
 }

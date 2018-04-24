@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import java.util.Random;
 
 public class ClaseD extends ClaseC {
+    private int cantidadEliminada=0;
     public ClaseD() {
         super();
         cambiarVida();
@@ -56,5 +57,11 @@ public class ClaseD extends ClaseC {
         this.getListaEnemigos().obtenerDato(posicion).getEnemigoObjeto().update();
         this.getListaEnemigos().obtenerDato(posicion2).getEnemigoObjeto().setPosicion(coordenas2[0], coordenas2[1]);
         this.getListaEnemigos().obtenerDato(posicion2).getEnemigoObjeto().update();
+    }
+    public int getCantidadEliminada() {
+        return cantidadEliminada;
+    }
+    public void setCantidadEliminada(int cantidad){
+        this.cantidadEliminada=cantidad;
     }
 }

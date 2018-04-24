@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class ClaseBasic implements Clase {
+    int cantidadEliminada=0;
     private Lista listaEnemigos = new ListaDoble();
 
     public ClaseBasic() {
@@ -16,6 +17,7 @@ public class ClaseBasic implements Clase {
             agregarEnemigo(i, 1);
         }
     }
+
 
 
     /**
@@ -91,4 +93,15 @@ public class ClaseBasic implements Clase {
         return this.listaEnemigos.cantidad();
     }
 
+
+    @Override
+    public int getCantidadEliminada() {
+        return cantidadEliminada;
+    }
+
+
+    @Override
+    public void setCantidadEliminada(int cantidadEliminada) {
+        this.cantidadEliminada = cantidadEliminada;
+    }
 }
